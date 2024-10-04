@@ -1,8 +1,25 @@
+import { useForm } from "react-hook-form";
 import GithubBtn from "./Github-btn";
 import GoogleBtn from "./Google-Btn";
 import { Input } from "./ui/input";
+import { authSchema } from "@/zod-schema/schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const Signup = () => {
+
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm({
+      resolver: zodResolver(authSchema),
+    });
+
+    const signInUser=(data:any)=>{
+        console.log(data)
+    }
+
+
   return (
     <section className="flex flex-col justify-center items-center w-[300px] md:w-full md:px-14  gap-4 font-inter">
       <div className="flex flex-col gap-2 items-center">
@@ -11,20 +28,35 @@ const Signup = () => {
         </h1>
         <p className="text-zinc-600 ">Sign up for free!</p>
       </div>
-      <form className="w-full flex flex-col gap-4">
+      <form
+        onSubmit={handleSubmit(signInUser)}
+        className="w-full flex flex-col gap-4"
+      >
         <div>
           <Input
             type="email"
+            {...register("email")}
             placeholder="Email"
             className="h-12 bg-zinc-100 outline outline-0 hover:outline-1 outline-zinc-400 shadow-none w-full"
           />
+          {errors.email && (
+            <p className="text-sm text-red-500">
+              {String(errors.email.message)}
+            </p>
+          )}
         </div>
         <div>
           <Input
             type="password"
+            {...register("password")}
             placeholder="Password"
             className="h-12 bg-zinc-100 outline outline-0 hover:outline-1 outline-zinc-400 shadow-none w-full"
           />
+          {errors.password && (
+            <p className="text-sm text-red-500">
+              {String(errors.password.message)}
+            </p>
+          )}
         </div>
         <button
           type="submit"

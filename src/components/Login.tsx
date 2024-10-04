@@ -1,6 +1,6 @@
+import GithubBtn from "./Github-btn";
+import GoogleBtn from "./Google-Btn";
 import { Input } from "./ui/input";
-import GithubLogo from "../assets/image/github-logo.png";
-
 
 const Login = () => {
   return (
@@ -35,6 +35,8 @@ const Login = () => {
       </form>
       <p className="text-zinc-600">OR</p>
       <section className="flex items-center flex-col gap-4 w-[100%]">
+        <GoogleBtn/>
+        <GithubBtn/>
         <p className="text-zinc-600 ">
           Don't have an account?{" "}
           <span className="text-purple-600 underline">Sign up</span>{" "}

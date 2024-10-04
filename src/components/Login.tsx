@@ -1,6 +1,6 @@
 import { Input } from "./ui/input";
 import GithubLogo from "../assets/image/github-logo.png";
-import GoogleLogo from "../assets/image/google-logo.webp";
+
 
 const Login = () => {
   return (

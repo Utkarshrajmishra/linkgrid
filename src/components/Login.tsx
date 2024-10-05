@@ -1,8 +1,35 @@
+import { useState } from "react";
 import GithubBtn from "./Github-btn";
 import GoogleBtn from "./Google-Btn";
 import { Input } from "./ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { authSchema } from "@/zod-schema/schema";
+import { useForm } from "react-hook-form";
+import app from "@/firebase";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { ColorRing } from "react-loader-spinner";
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(authSchema),
+  });
+
+  const logIn = async (data: any): Promise<void> => {
+    try {
+      setLoading(true);
+      const auth = getAuth(app);
+      const user = signInWithEmailAndPassword(auth, data.email, data.password);
+      console.log("LogIn successfull");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <section className="flex flex-col justify-center items-center w-[300px] md:w-full md:px-14  gap-4 font-inter">
       <div className="flex flex-col gap-2 items-center">
@@ -11,32 +38,59 @@ const Login = () => {
         </h1>
         <p className="text-zinc-600 ">Log in to your Linktree</p>
       </div>
-      <form className="w-full flex flex-col gap-4">
+      <form
+        onSubmit={handleSubmit(logIn)}
+        className="w-full flex flex-col gap-4"
+      >
         <div>
           <Input
             type="email"
+            {...register("email")}
             placeholder="Email"
             className="h-12 bg-zinc-100 outline outline-0 hover:outline-1 outline-zinc-400 shadow-none w-full"
           />
+          {errors.email && (
+            <p className="text-sm text-red-500">
+              {String(errors.email.message)}
+            </p>
+          )}
         </div>
         <div>
           <Input
             type="password"
+            {...register("password")}
             placeholder="Password"
             className="h-12 bg-zinc-100 outline outline-0 hover:outline-1 outline-zinc-400 shadow-none w-full"
           />
+          {errors.password && (
+            <p className="text-sm text-red-500">
+              {String(errors.password.message)}
+            </p>
+          )}
         </div>
         <button
           type="submit"
           className="font-semibold bg-purple-600 hover:bg-purple-700 text-white h-12 rounded-3xl"
         >
-          Log In
+          {loading ? (
+            <ColorRing
+              visible={true}
+              height="40"
+              width="40"
+              ariaLabel="color-ring-loading"
+              wrapperStyle={{}}
+              wrapperClass="color-ring-wrapper"
+              colors={["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"]}
+            />
+          ) : (
+            "Log In"
+          )}
         </button>
       </form>
       <p className="text-zinc-600">OR</p>
       <section className="flex items-center flex-col gap-4 w-[100%]">
-        <GoogleBtn/>
-        <GithubBtn/>
+        <GoogleBtn />
+        <GithubBtn />
         <p className="text-zinc-600 ">
           Don't have an account?{" "}
           <span className="text-purple-600 underline">Sign up</span>{" "}

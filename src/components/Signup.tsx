@@ -4,22 +4,37 @@ import GoogleBtn from "./Google-Btn";
 import { Input } from "./ui/input";
 import { authSchema } from "@/zod-schema/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import app from "@/firebase";
+import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
+import { useState } from "react";
+import { ColorRing } from "react-loader-spinner";
 
 const Signup = () => {
+  const [loading, setLoading] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(authSchema),
+  });
 
-    const {
-      register,
-      handleSubmit,
-      formState: { errors },
-    } = useForm({
-      resolver: zodResolver(authSchema),
-    });
-
-    const signInUser=(data:any)=>{
-        console.log(data)
+  const signInUser = async (data: any): Promise<void> => {
+    try {
+      setLoading(true);
+      const auth = getAuth(app);
+      const userCredentials = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+      console.log("User signed in successfully:", userCredentials);
+    } catch (error: any) {
+      console.error("Error signing in:", error.message || error);
+    } finally {
+      setLoading(false);
     }
-
-
+  };
   return (
     <section className="flex flex-col justify-center items-center w-[300px] md:w-full md:px-14  gap-4 font-inter">
       <div className="flex flex-col gap-2 items-center">
@@ -60,9 +75,21 @@ const Signup = () => {
         </div>
         <button
           type="submit"
-          className="font-semibold bg-purple-600 hover:bg-purple-700 text-white h-12 rounded-3xl"
+          className="font-semibold flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white h-12 rounded-3xl"
         >
-          Log In
+          {loading ? (
+            <ColorRing
+              visible={true}
+              height="40"
+              width="40"
+              ariaLabel="color-ring-loading"
+              wrapperStyle={{}}
+              wrapperClass="color-ring-wrapper"
+              colors={["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"]}
+            />
+          ) : (
+            "Sign Up"
+          )}
         </button>
       </form>
       <p className="text-zinc-600">OR</p>

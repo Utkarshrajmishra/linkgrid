@@ -35,7 +35,7 @@ const Signup:FC<SignupProps>= ({authSwitcher}:SignupProps) => {
         data.password
       );
       console.log("User signed in successfully:", userCredentials);
-      if (userCredentials) navigate("/auth/registration");
+      if (userCredentials) navigate("/auth/registration",{state:{email:data.email}});
     } catch (error: any) {
       console.error("Error signing in:", error.message || error);
     } finally {

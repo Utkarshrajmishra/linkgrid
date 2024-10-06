@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import GithubBtn from "./Github-btn";
 import GoogleBtn from "./Google-Btn";
 import { Input } from "./ui/input";
@@ -9,7 +9,11 @@ import app from "@/firebase";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { ColorRing } from "react-loader-spinner";
 
-const Login = () => {
+interface LoginProps {
+  authSwitcher: (value: boolean) => void;
+}
+
+const Login: FC<LoginProps> = ({ authSwitcher }: LoginProps) => {
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -18,15 +22,22 @@ const Login = () => {
   } = useForm({
     resolver: zodResolver(authSchema),
   });
+  
 
   const logIn = async (data: any): Promise<void> => {
     try {
       setLoading(true);
       const auth = getAuth(app);
-      const user = signInWithEmailAndPassword(auth, data.email, data.password);
-      console.log("LogIn successfull");
+      const user = await signInWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+      console.log("login")
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -36,7 +47,7 @@ const Login = () => {
         <h1 className="md:text-6xl text-center text-4xl font-inter font-[650] tracking-[-1px]">
           Welcome back!
         </h1>
-        <p className="text-zinc-600 ">Log in to your Linktree</p>
+        <p className="text-zinc-600 ">Log in to your LinkGrid</p>
       </div>
       <form
         onSubmit={handleSubmit(logIn)}
@@ -70,7 +81,7 @@ const Login = () => {
         </div>
         <button
           type="submit"
-          className="font-semibold bg-purple-600 hover:bg-purple-700 text-white h-12 rounded-3xl"
+          className="font-semibold bg-purple-600 flex items-center justify-center hover:bg-purple-700 text-white h-12 rounded-3xl"
         >
           {loading ? (
             <ColorRing
@@ -93,7 +104,12 @@ const Login = () => {
         <GithubBtn />
         <p className="text-zinc-600 ">
           Don't have an account?{" "}
-          <span className="text-purple-600 underline">Sign up</span>{" "}
+          <span
+            onClick={() => authSwitcher(true)}
+            className="text-purple-600 underline cursor-pointer"
+          >
+            Sign up
+          </span>{" "}
         </p>
       </section>
     </section>

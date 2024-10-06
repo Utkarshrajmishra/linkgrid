@@ -6,10 +6,15 @@ import { authSchema } from "@/zod-schema/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import app from "@/firebase";
 import { createUserWithEmailAndPassword, getAuth } from "firebase/auth";
-import { useState } from "react";
+import { FC, useState } from "react";
 import { ColorRing } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 
-const Signup = () => {
+interface SignupProps {
+  authSwitcher: (value: boolean) => void;
+}
+
+const Signup:FC<SignupProps>= ({authSwitcher}:SignupProps) => {
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -18,6 +23,7 @@ const Signup = () => {
   } = useForm({
     resolver: zodResolver(authSchema),
   });
+  const navigate = useNavigate();
 
   const signInUser = async (data: any): Promise<void> => {
     try {
@@ -29,6 +35,7 @@ const Signup = () => {
         data.password
       );
       console.log("User signed in successfully:", userCredentials);
+      if (userCredentials) navigate("/auth/registration");
     } catch (error: any) {
       console.error("Error signing in:", error.message || error);
     } finally {
@@ -98,7 +105,9 @@ const Signup = () => {
         <GithubBtn />
         <p className="text-zinc-600 ">
           Already have an account?{" "}
-          <span className="text-purple-600 underline">Log in</span>
+          <span onClick={()=>authSwitcher(false)} className="text-purple-600 underline cursor-pointer">
+           Log in
+          </span>
         </p>
       </section>
     </section>

@@ -6,11 +6,12 @@ const Template = () => {
   return (
     <>
       <div className="flex justify-center min-h-screen">
-        <section className="md:w-[60%] justify-center   w-full items-center p-4 flex flex-col gap-8">
+        <section className="md:w-[60%] w-full mt-4 items-center p-4 flex flex-col gap-8">
           <Progress />
-
-          <h1 className="text-5xl font-[900] font-inter">Select a Template</h1>
-          <p className="font-inter text-zinc-500">
+          <h1 className="md:text-5xl text-4xl font-[900] font-inter text-center">
+            Select a Template
+          </h1>
+          <p className="font-inter text-zinc-500 text-center">
             Pick the style that feels right - you can add your content later
           </p>
           <section className="flex gap-4 flex-wrap">
@@ -18,9 +19,25 @@ const Template = () => {
             <img src={Image2} className="w-[220px] rounded-xl" />
             <img src={Image3} className="w-[220px] rounded-xl" />
           </section>
+       
+          <button
+            type="submit"
+            className="font-semibold   flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white h-12 md:w-[500px] w-full rounded-3xl"
+          >
+            Continue
+          </button>
         </section>
       </div>
+      ;
     </>
   );
 };
 export default Template;
+
+
+ 
+
+
+
+
+ 

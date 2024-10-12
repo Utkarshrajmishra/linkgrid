@@ -16,14 +16,16 @@ const Social = () => {
           </p>
           <section className="grid grid-cols-3 md:grid-cols-5 md:gap-14 gap-10">
             {Icons?.map((item, index) => (
-              <div className="w-[86px] h-[90px] justify-center rounded-md bg-slate-200 flex flex-col items-center gap-1">
+              <div className="w-[86px] h-[90px] justify-center rounded-md bg-zinc-200 flex flex-col items-center gap-1">
                 <img
                   key={index}
                   src={item.icon}
                   alt=""
                   className="w-9 h-9 rounded-xl"
                 />
-                <p className="text-[0.85rem] text-inter">{item.title}</p>
+                <p className="text-[0.85rem] text-inter text-zinc-500">
+                  {item.title}
+                </p>
               </div>
             ))}
           </section>

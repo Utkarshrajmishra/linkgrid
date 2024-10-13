@@ -11,11 +11,12 @@ import {
   where,
 } from "firebase/firestore";
 import { CircleAlert, CircleCheck, Loader } from "lucide-react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Username = () => {
   const { state } = useLocation();
   const { email } = state;
+  const navigate=useNavigate()
   const [loading, setLoading] = useState({
     searching: false,
     sendingData: false,
@@ -55,27 +56,26 @@ const Username = () => {
       }
     };
 
-    const timeoutId = setTimeout(fetchUserName, 1000); 
+    const timeoutId = setTimeout(fetchUserName, 1000);
     return () => clearTimeout(timeoutId);
   }, [userId]);
 
-
-
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
-    if (userId && !error && userNotFound) {
-      setLoading((prev) => ({ ...prev, sendingData: true }));
-      try {
-        await setDoc(doc(db, "userName", email), {
-          userId: userId,
-        });
-        console.log("User created");
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading((prev) => ({ ...prev, sendingData: false }));
-      }
-    }
+    // if (userId && !error && userNotFound) {
+    //   setLoading((prev) => ({ ...prev, sendingData: true }));
+    //   try {
+    //     await setDoc(doc(db, "userName", email), {
+    //       userId: userId,
+    //     });
+    //     console.log("User created");
+    //   } catch (error) {
+    //     console.log(error);
+    //   } finally {
+    //     setLoading((prev) => ({ ...prev, sendingData: false }));
+    //   }
+    // }
+    navigate("/template");
   };
 
   return (
@@ -110,9 +110,7 @@ const Username = () => {
               )}
             </div>
           </div>
-          {
-            error && <p className="text-sm text-red-500">{error}</p>
-          }
+          {error && <p className="text-sm text-red-500">{error}</p>}
         </div>
         <p className="text-center text-zinc-600">
           By continuing, you agree to receive offers, news and updates from
@@ -121,8 +119,12 @@ const Username = () => {
         <button
           type="submit"
           onClick={handleSubmit}
-          className="font-semibold flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white h-12 rounded-3xl"
-          disabled={loading.sendingData}
+          className={`font-semibold flex items-center justify-center  text-white h-12 rounded-3xl ${
+            loading.sendingData || !userNotFound
+              ? "bg-purple-300 hover:bg-purple-300"
+              : "bg-purple-600 hover:bg-purple-700"
+          }`}
+          disabled={loading.sendingData || !userNotFound}
         >
           {loading.sendingData ? (
             <ColorRing

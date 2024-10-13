@@ -1,7 +1,9 @@
 import Progress from "@/components/Progress";
 import { Icons } from "@/constants/Icons";
+import { useNavigate } from "react-router-dom";
 
 const Social = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="flex justify-center min-h-screen">
@@ -30,7 +32,7 @@ const Social = () => {
             ))}
           </section>
           <button
-            type="submit"
+            onClick={() => navigate("/social/links")}
             className="font-semibold md:mt-20  flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white h-12 md:w-[500px] w-full rounded-3xl"
           >
             Continue

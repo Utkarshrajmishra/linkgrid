@@ -2,7 +2,9 @@ import Progress from "@/components/Progress";
 import Image1 from "../assets/image/template1.png";
 import Image2 from "../assets/image/template2.png";
 import Image3 from "../assets/image/template3.png";
+import { useNavigate } from "react-router-dom";
 const Template = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="flex justify-center min-h-screen">
@@ -19,9 +21,9 @@ const Template = () => {
             <img src={Image2} className="w-[220px] rounded-xl" />
             <img src={Image3} className="w-[220px] rounded-xl" />
           </section>
-       
+
           <button
-            type="submit"
+            onClick={() => navigate("/social")}
             className="font-semibold   flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white h-12 md:w-[500px] w-full rounded-3xl"
           >
             Continue
@@ -33,11 +35,3 @@ const Template = () => {
   );
 };
 export default Template;
-
-
- 
-
-
-
-
- 

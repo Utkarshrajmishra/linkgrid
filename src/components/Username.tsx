@@ -2,6 +2,7 @@ import { ColorRing } from "react-loader-spinner";
 import { Input } from "./ui/input";
 import { useEffect, useState } from "react";
 import { db } from "@/firebase";
+import { Textarea } from "./ui/textarea";
 import {
   collection,
   doc,
@@ -88,7 +89,7 @@ const Username = () => {
           Choose your LinkGrid username. You can always change it later.
         </p>
       </div>
-      <form className="w-full flex flex-col gap-8" onSubmit={handleSubmit}>
+      <form className="w-full flex flex-col gap-5" onSubmit={handleSubmit}>
         <div>
           <div className="relative w-full">
             <Input
@@ -112,14 +113,24 @@ const Username = () => {
           </div>
           {error && <p className="text-sm text-red-500">{error}</p>}
         </div>
-        <p className="text-center text-zinc-600">
-          By continuing, you agree to receive offers, news and updates from
-          LinkGrid.
-        </p>
+        <div>
+          <Input
+            type="text"
+            placeholder="Input your name"
+            className="h-12 bg-zinc-100 pl-4 pr-10 outline outline-0 hover:outline-1 outline-zinc-400 shadow-none w-full"
+          />
+        </div>
+        <div>
+          <Textarea
+          rows={5}
+            placeholder="Input your bios (Try to keep it short and crisp)"
+            className=" bg-zinc-100 pl-4 pr-10 outline outline-0 hover:outline-1 outline-zinc-400 shadow-none w-full"
+          />
+        </div>
         <button
           type="submit"
           onClick={handleSubmit}
-          className={`font-semibold flex items-center justify-center  text-white h-12 rounded-3xl ${
+          className={`font-semibold flex items-center justify-center   text-white h-12 rounded-3xl ${
             loading.sendingData || !userNotFound
               ? "bg-purple-300 hover:bg-purple-300"
               : "bg-purple-600 hover:bg-purple-700"

@@ -1,30 +1,25 @@
-import { ReactNode, useState } from "react";
-import { createContext } from "react";
+// import { createContext, ReactNode, useState } from "react"
+// import { undefined } from "zod"
 
-interface USERDATA {
-  username: string;
-  links: string[];
-}
+// type UserDataType={
+//   userId: string,
+//   socialLinks:[]
+// }
 
-type DataContextType = {
-  data: USERDATA | null;
-  updateData: React.Dispatch<React.SetStateAction<USERDATA | null>>;
-};
+// type UserContex={
+//   userData:UserDataType,
+//   setUserData:(data:UserDataType)=>void,
+// }
 
-export const DataContext = createContext<DataContextType | undefined>(
-  undefined
-);
+// const UserDataContext=createContext<UserContex|undefined>(undefined)
 
-type UserContextProviderProps = {
-  children: ReactNode;
-};
+// type ProviderProp={
+//   children:ReactNode
+// }
 
-export const DataContextProvider = ({ children }: UserContextProviderProps) => {
-  const [data, setData] = useState<USERDATA | null>(null);
-
-  return (
-    <DataContext.Provider value={{ data, updateData: setData }}>
-      {children}
-    </DataContext.Provider>
-  );
-};
+// export const UserDataContextProvider=({children}:ProviderProp)=>{
+//     const [userData, setUserData] = useState<UserContex>();
+//     return(
+    
+//     )
+// }

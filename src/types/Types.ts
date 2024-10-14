@@ -3,6 +3,7 @@ export interface UserInfoTypes{
     username:string,
     template:string,
     bio:string,
+    soicalProviders:string[]
     name:string,
 }
 

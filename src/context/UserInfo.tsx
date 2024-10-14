@@ -7,6 +7,7 @@ export const UserContext = createContext<UserContextTypes>({
     template: "",
     bio: "",
     name: "",
+    soicalProviders:[]
   },
   setUserData: () => {},
 });
@@ -17,6 +18,7 @@ export const UserContextProvider = ({ children }: { children: ReactNode }) => {
     template: "",
     bio: "",
     name: "",
+    soicalProviders: [],
   });
 
   const contextValue: UserContextTypes = {

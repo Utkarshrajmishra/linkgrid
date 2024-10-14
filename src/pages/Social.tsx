@@ -1,9 +1,22 @@
 import Progress from "@/components/Progress";
 import { Icons } from "@/constants/Icons";
 import { useNavigate } from "react-router-dom";
-
+import { useContext, useState } from "react";
+import { UserContext } from "@/context/UserInfo";
 const Social = () => {
   const navigate = useNavigate();
+  const {userData,setUserData}=useContext(UserContext)
+  const [providers,setProviders]=useState<string[]>([])
+
+  const handleClick=(index:Number)=>{
+    const temp:string[]=[...providers, String(index)]
+    setProviders(temp)
+  }
+
+  const handleSubmit=()=>{
+    setUserData({...userData,soicalProviders:providers})
+    navigate("/social/links")
+  }
   return (
     <>
       <div className="flex justify-center min-h-screen">
@@ -18,7 +31,7 @@ const Social = () => {
           </p>
           <section className="grid grid-cols-3 md:grid-cols-5 md:gap-14 gap-10">
             {Icons?.map((item, index) => (
-              <div className="w-[86px] h-[90px] justify-center rounded-md bg-zinc-200 flex flex-col items-center gap-1">
+              <div onClick={()=>handleClick(index)} className="w-[86px] h-[90px] justify-center rounded-md bg-zinc-200 flex flex-col items-center gap-1">
                 <img
                   key={index}
                   src={item.icon}
@@ -32,7 +45,7 @@ const Social = () => {
             ))}
           </section>
           <button
-            onClick={() => navigate("/social/links")}
+            onClick={handleSubmit}
             className="font-semibold md:mt-20  flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white h-12 md:w-[500px] w-full rounded-3xl"
           >
             Continue

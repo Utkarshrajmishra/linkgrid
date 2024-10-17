@@ -4,12 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { UserContext } from "@/context/UserInfo";
 const Social = () => {
+
   const navigate = useNavigate();
   const {userData,setUserData}=useContext(UserContext)
   const [providers,setProviders]=useState<string[]>([])
 
   const handleClick=(index:Number)=>{
-    const temp:string[]=[...providers, String(index)]
+    let temp:string[];
+    if(providers.includes(String(index))) {
+      temp=[...providers]
+      temp.slice()
+    }
+     temp=[...providers, String(index)]
     setProviders(temp)
   }
 
@@ -31,7 +37,7 @@ const Social = () => {
           </p>
           <section className="grid grid-cols-3 md:grid-cols-5 md:gap-14 gap-10">
             {Icons?.map((item, index) => (
-              <div onClick={()=>handleClick(index)} className="w-[86px] h-[90px] justify-center rounded-md bg-zinc-200 flex flex-col items-center gap-1">
+              <div onClick={()=>handleClick(index)} className={'w-[86px] h-[90px] justify-center rounded-md bg-zinc-200 flex flex-col items-center gap-1'}>
                 <img
                   key={index}
                   src={item.icon}

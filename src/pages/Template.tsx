@@ -1,20 +1,38 @@
 import Progress from "@/components/Progress";
 import { useNavigate } from "react-router-dom";
 import { TemplateImages } from "@/constants/TemplateImage";
-import { useContext } from "react";
-import { UserContext } from "@/context/UserInfo";
 import { useState } from "react";
+import { getAuth } from "firebase/auth";
+import { db } from "@/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { ColorRing } from "react-loader-spinner";
 
 const Template = () => {
+  const [isLoading, setLoading] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<Number>(-1);
+  const email = getAuth().currentUser?.email;
   const navigate = useNavigate();
-  const { userData, setUserData } = useContext(UserContext);
 
-  const handleSubmit = () => {
-    setUserData({ ...userData, template: String(selectedTemplate) });
-    navigate("/social");
+  const handleSubmit = async () => {
+    try {
+      setLoading(true);
+      const databaseRef = doc(
+        db,
+        "UserTemplates",
+        `utkarshrajmishra811545@gmail.com`
+      );
+      await setDoc(databaseRef, {
+        template: selectedTemplate,
+      });
+      console.log("Template added");
+      navigate("/social");
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(true);
+    }
   };
-  
+
   return (
     <>
       <div className="flex justify-center min-h-screen">
@@ -51,7 +69,19 @@ const Template = () => {
                 : "bg-purple-400"
             }`}
           >
-            Continue
+            {isLoading ? (
+              <ColorRing
+                visible={true}
+                height="40"
+                width="40"
+                ariaLabel="color-ring-loading"
+                wrapperStyle={{}}
+                wrapperClass="color-ring-wrapper"
+                colors={["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"]}
+              />
+            ) : (
+              "Continue"
+            )}
           </button>
         </section>
       </div>

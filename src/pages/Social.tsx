@@ -3,25 +3,47 @@ import { Icons } from "@/constants/Icons";
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { UserContext } from "@/context/UserInfo";
+import { db } from "@/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { ColorRing } from "react-loader-spinner";
 const Social = () => {
 
   const navigate = useNavigate();
+  const [loading,setLoading]=useState(false)
   const {userData,setUserData}=useContext(UserContext)
-  const [providers,setProviders]=useState<string[]>([])
+  const [providers,setProviders]=useState<Number[]>([])
+
+
 
   const handleClick=(index:Number)=>{
-    let temp:string[];
-    if(providers.includes(String(index))) {
-      temp=[...providers]
-      temp.slice()
+    let temp:Number[];
+    if(providers.includes(index)) {
+      const indx=providers.indexOf(index)
+      temp=[...providers];
+      temp.splice(indx,1)
     }
-     temp=[...providers, String(index)]
+    else{
+     temp=[...providers,index]
+    }
     setProviders(temp)
+    console.log(temp)
   }
 
-  const handleSubmit=()=>{
+  const handleSubmit=async()=>{
+    setLoading(false)
     setUserData({...userData,soicalProviders:providers})
-    navigate("/social/links")
+    try {
+      const docRef=doc(db,"UserSocialProviders","utkarshrajmishra811545@gmail.com");
+      await setDoc(docRef,{
+        socialProviders:providers
+      })
+      navigate("/social/links");
+    } catch (error) {
+      console.log(error)
+    }
+    finally{
+      setLoading(true)
+    }
   }
   return (
     <>
@@ -30,14 +52,14 @@ const Social = () => {
           <Progress />
 
           <h1 className="md:text-5xl text-4xl font-[900] font-inter text-center">
-            Select a Template
+            Select your Socials
           </h1>
           <p className="font-inter text-zinc-500 text-center">
-            Pick the style that feels right - you can add your content later
+            Pick the style that feels right - you can add your content later`
           </p>
           <section className="grid grid-cols-3 md:grid-cols-5 md:gap-14 gap-10">
             {Icons?.map((item, index) => (
-              <div onClick={()=>handleClick(index)} className={'w-[86px] h-[90px] justify-center rounded-md bg-zinc-200 flex flex-col items-center gap-1'}>
+              <div onClick={()=>handleClick(index)} className={`cursor-pointer ${(providers.includes(index))?"outline outline-1 outline-black":"outline-none"} w-[86px] h-[90px] justify-center rounded-md bg-zinc-200 flex flex-col items-center gap-1`}>
                 <img
                   key={index}
                   src={item.icon}
@@ -54,7 +76,18 @@ const Social = () => {
             onClick={handleSubmit}
             className="font-semibold md:mt-20  flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white h-12 md:w-[500px] w-full rounded-3xl"
           >
-            Continue
+            {loading?
+            (
+             <ColorRing
+              visible={true}
+              height="40"
+              width="40"
+              ariaLabel="color-ring-loading"
+              wrapperStyle={{}}
+              wrapperClass="color-ring-wrapper"
+              colors={["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"]}
+            />
+          ): "Continue"}
           </button>
         </section>
       </div>

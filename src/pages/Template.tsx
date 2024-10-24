@@ -2,35 +2,19 @@ import Progress from "@/components/Progress";
 import { useNavigate } from "react-router-dom";
 import { TemplateImages } from "@/constants/TemplateImage";
 import { useState } from "react";
-import { getAuth } from "firebase/auth";
-import { db } from "@/firebase";
-import { doc, setDoc } from "firebase/firestore";
-import { ColorRing } from "react-loader-spinner";
+import { useContext } from "react";
+import { UserContext } from "@/context/UserInfo";
 
 const Template = () => {
-  const [isLoading, setLoading] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<Number>(-1);
-  const email = getAuth().currentUser?.email;
+  const { userData, setUserData } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSubmit = async () => {
-    try {
-      setLoading(true);
-      const databaseRef = doc(
-        db,
-        "UserTemplates",
-        `utkarshrajmishra811545@gmail.com`
-      );
-      await setDoc(databaseRef, {
-        template: selectedTemplate,
-      });
-      console.log("Template added");
-      navigate("/social");
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(true);
-    }
+    const tempData={...userData, template:selectedTemplate}
+    setUserData(tempData)
+    console.log(tempData)
+    navigate("/social");
   };
 
   return (
@@ -69,19 +53,7 @@ const Template = () => {
                 : "bg-purple-400"
             }`}
           >
-            {isLoading ? (
-              <ColorRing
-                visible={true}
-                height="40"
-                width="40"
-                ariaLabel="color-ring-loading"
-                wrapperStyle={{}}
-                wrapperClass="color-ring-wrapper"
-                colors={["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"]}
-              />
-            ) : (
-              "Continue"
-            )}
+            Continue
           </button>
         </section>
       </div>

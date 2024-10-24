@@ -4,10 +4,11 @@ import { UserContextTypes, UserInfoTypes } from "@/types/Types";
 export const UserContext = createContext<UserContextTypes>({
   userData: {
     username: "",
-    template: "",
+    template: -1,
     bio: "",
     name: "",
-    soicalProviders:[]
+    soicalProviders:[],
+    socialLink:[],
   },
   setUserData: () => {},
 });
@@ -15,10 +16,11 @@ export const UserContext = createContext<UserContextTypes>({
 export const UserContextProvider = ({ children }: { children: ReactNode }) => {
   const [userData, setUserData] = useState<UserInfoTypes>({
     username: "",
-    template: "",
+    template: -1,
     bio: "",
     name: "",
     soicalProviders: [],
+    socialLink:[],
   });
 
   const contextValue: UserContextTypes = {

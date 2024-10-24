@@ -1,45 +1,43 @@
-import { ColorRing } from "react-loader-spinner";
 import { Input } from "./ui/input";
 import { useEffect, useState } from "react";
 import { db } from "@/firebase";
 import { Textarea } from "./ui/textarea";
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  setDoc,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
+import { useContext } from "react";
+import { UserContext } from "@/context/UserInfo";
 import { CircleAlert, CircleCheck, Loader } from "lucide-react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Username = () => {
-  const { state } = useLocation();
-  const { email } = state;
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [loading, setLoading] = useState({
     searching: false,
     sendingData: false,
   });
+  const { userData, setUserData } = useContext(UserContext);
   const [userNotFound, setUserNotFound] = useState(false);
-  const [userId, setUserId] = useState("");
+  const [data, setData] = useState({
+    userId:"",
+    bios:"",
+    name:""
+  });
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (userId === "") {
+    if (data.userId === "") {
       setError("");
       setUserNotFound(false);
       setLoading((prev) => ({ ...prev, searching: false }));
       return;
     }
 
+
     const fetchUserName = async () => {
       setLoading((prev) => ({ ...prev, searching: true }));
       try {
         const q = query(
           collection(db, "userName"),
-          where("userId", "==", userId)
+          where("userId", "==", data.userId)
         );
         const querySnapshot = await getDocs(q);
 
@@ -59,26 +57,17 @@ const Username = () => {
 
     const timeoutId = setTimeout(fetchUserName, 1000);
     return () => clearTimeout(timeoutId);
-  }, [userId]);
+  }, [data.userId]);
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit =  (e: any) => {
     e.preventDefault();
-    // if (userId && !error && userNotFound) {
-    //   setLoading((prev) => ({ ...prev, sendingData: true }));
-    //   try {
-    //     await setDoc(doc(db, "userName", email), {
-    //       userId: userId,
-    //     });
-    //     console.log("User created");
-    //   } catch (error) {
-    //     console.log(error);
-    //   } finally {
-    //     setLoading((prev) => ({ ...prev, sendingData: false }));
-    //   }
-    // }
+    const temp = { ...userData, username: data.userId, name:data.name,  bio:data.bios, };
+    setUserData(temp);
+    console.log(temp);
     navigate("/template");
   };
 
+  
   return (
     <section className="flex flex-col justify-center items-center w-[300px] md:w-full md:px-14 gap-8 font-inter">
       <div className="flex flex-col gap-3 items-center">
@@ -93,20 +82,20 @@ const Username = () => {
         <div>
           <div className="relative w-full">
             <Input
-              value={userId}
-              onChange={(e) => setUserId(e.target.value)}
+              value={data.userId}
+              onChange={(e) => setData({ ...data, userId: e.target.value })}
               type="text"
               placeholder="linkgrid/username"
               className="h-12 bg-zinc-100 pl-4 pr-10 outline outline-0 hover:outline-1 outline-zinc-400 shadow-none w-full"
             />
             <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-              {loading.searching && userId && (
+              {loading.searching && data.userId && (
                 <Loader className="text-zinc-500 animate-spin" />
               )}
               {error && !loading.searching && (
                 <CircleAlert className="text-red-500" />
               )}
-              {userNotFound && userId && !loading.searching && (
+              {userNotFound && data.userId && !loading.searching && (
                 <CircleCheck className="text-green-500" />
               )}
             </div>
@@ -116,40 +105,33 @@ const Username = () => {
         <div>
           <Input
             type="text"
+            onChange={(e)=>setData({...data,name:e.target.value})}
             placeholder="Input your name"
             className="h-12 bg-zinc-100 pl-4 pr-10 outline outline-0 hover:outline-1 outline-zinc-400 shadow-none w-full"
           />
         </div>
         <div>
           <Textarea
-          rows={5}
+          onChange={(e)=>setData({...data, bios:e.target.value})}
+            rows={5}
             placeholder="Input your bios (Try to keep it short and crisp)"
             className=" bg-zinc-100 pl-4 pr-10 outline outline-0 hover:outline-1 outline-zinc-400 shadow-none w-full"
           />
         </div>
         <button
           type="submit"
-          onClick={handleSubmit}
           className={`font-semibold flex items-center justify-center   text-white h-12 rounded-3xl ${
-            loading.sendingData || !userNotFound
+            (loading.sendingData || !userNotFound) &&
+            (data.bios == "" || data.name == "")
               ? "bg-purple-300 hover:bg-purple-300"
               : "bg-purple-600 hover:bg-purple-700"
           }`}
-          disabled={loading.sendingData || !userNotFound}
+          disabled={
+            (loading.sendingData || !userNotFound) &&
+            (data.bios == "" || data.name == "")
+          }
         >
-          {loading.sendingData ? (
-            <ColorRing
-              visible={true}
-              height="40"
-              width="40"
-              ariaLabel="color-ring-loading"
-              wrapperStyle={{}}
-              wrapperClass="color-ring-wrapper"
-              colors={["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"]}
-            />
-          ) : (
-            "Continue"
-          )}
+          Continue
         </button>
       </form>
     </section>

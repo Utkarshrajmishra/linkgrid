@@ -1,10 +1,11 @@
 
 export interface UserInfoTypes{
     username:string,
-    template:string,
+    template:Number,
     bio:string,
-    soicalProviders:string[]
+    soicalProviders:Number[]
     name:string,
+    socialLink:string[],
 }
 
 export interface UserContextTypes{

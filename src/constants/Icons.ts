@@ -13,41 +13,51 @@ export const Icons = [
   {
     title: "Instagram",
     icon: Insta,
+    message: "Input the Instagram username",
   },
   {
     title: "Website",
     icon: Web,
+    message: "Input your website Url",
   },
   {
     title: "WhatsApp",
     icon: Whatsapp,
+    message: "Input your Whatsapp link",
   },
   {
     title: "Snapchat",
     icon: Snap,
+    message: "Input your Snapchat username",
   },
   {
     title: "Spotify",
     icon: Spotify,
+    message: "Input your Spotify username",
   },
   {
     title: "X (Twitter)",
     icon: X,
+    message: "Input your X (Twitter)",
   },
   {
     title: "YouTube",
     icon: Youtube,
+    message:"Input your channel name"
   },
   {
     title: "Facebook",
     icon: Facebook,
+    message:"Input your facebook"
   },
   {
-    title:'Amazon',
-    icon:Amazon
+    title: "Amazon",
+    icon: Amazon,
+    message:"Input your amazon link"
   },
   {
-    title:'SoundCloud',
-    icon:CloudSound
-  }
+    title: "SoundCloud",
+    icon: CloudSound,
+    message:"InpuT your SoundCloud username"
+  },
 ];

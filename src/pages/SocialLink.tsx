@@ -4,7 +4,7 @@ import LinkInput from "@/components/Link-input";
 const SocialLink = () => {
   return (
     <>
-      <div className="flex justify-center min-h-screen">
+      <div className="flex justify-center items-center min-h-screen">
         <section className="md:w-[60%] w-full mt-4 items-center p-4 md:px-10 flex flex-col gap-10">
           <Progress />
           <LinkInput />

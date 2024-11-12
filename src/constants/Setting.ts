@@ -1,4 +1,3 @@
-import { Settings, Link2, Clapperboard, ChartColumn } from "lucide-react";
 import { CiSettings } from "react-icons/ci";
 import { CiExport } from "react-icons/ci";
 import { CiDatabase } from "react-icons/ci";

@@ -7,12 +7,17 @@ const Sidebar = () => {
   console.log(user);
 
   return (
-    <div className="w-[16%] bg-stone-50 p-5 h-[100vh] flex flex-col justify-between border-r border-gray-400">
+    <div className=" bg-stone-50 p-5 h-[100vh] flex flex-col justify-between border-r border-gray-400">
       <div className="flex flex-col gap-5">
         {Setting.map((item) => (
-          <div key={item.id} className="flex gap-3 items-center">
+          <div
+            key={item.id}
+            className="flex hover:text-purple-800 text-zinc-700  gap-4 items-center"
+          >
             <item.icons fontSize={25} />
-            <p className="text-sm text-neutral-800">{item.title}</p>
+            <p className="text-sm font-[500] text-zinc-700 hover:text-purple-800">
+              {item.title}
+            </p>
           </div>
         ))}
       </div>

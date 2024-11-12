@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import app from "@/firebase";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { ColorRing } from "react-loader-spinner";
+import { useNavigate } from "react-router-dom";
 
 interface LoginProps {
   authSwitcher: (value: boolean) => void;
@@ -22,8 +23,7 @@ const Login: FC<LoginProps> = ({ authSwitcher }: LoginProps) => {
   } = useForm({
     resolver: zodResolver(authSchema),
   });
-  
-
+  const navigation=useNavigate()
   const logIn = async (data: any): Promise<void> => {
     try {
       setLoading(true);
@@ -33,7 +33,8 @@ const Login: FC<LoginProps> = ({ authSwitcher }: LoginProps) => {
         data.email,
         data.password
       );
-      console.log("login")
+      navigation('/admin')
+
     } catch (error) {
       console.log(error);
     } finally {

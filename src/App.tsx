@@ -5,6 +5,7 @@ import Auth from "./pages/Auth";
 import Template from "./pages/Template";
 import Social from "./pages/Social";
 import SocialLink from "./pages/SocialLink";
+import Home from "./pages/Home";
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <Route path="/auth/registration" element={<Register />} />
         <Route path="/social" element={<Social />} />
         <Route path="/social/links" element={<SocialLink />} />
+        <Route path="/admin" element={<Home/>} />
       </Routes>
     </>
   );

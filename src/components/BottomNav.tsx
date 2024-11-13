@@ -2,7 +2,7 @@ import { Setting } from "@/constants/Setting";
 
 const BottonNav = () => {
   return (
-    <div className="flex bg-stone-50 border-t border-gray-400  p-2 w-full justify-between">
+    <div className="flex p-4 bg-stone-50 border-t border-gray-400   w-full justify-between">
       {Setting?.map((item, index) => (
         <div
           key={index}

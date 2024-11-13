@@ -13,11 +13,11 @@ const LinkContainer = () => {
       <div className="flex gap-2">
         <p className="text-sm">https://ui.shadcn.com/docs/components/switch</p>
       </div>
-      <div className="flex  gap-2">
+      <div className="flex  gap-3">
         <Switch />
         <AiOutlineDelete
           fontSize={22}
-          className="cursor-pointre text-stone-700"
+          className="cursor-pointer text-stone-700"
         />
         <PiChartLine fontSize={22} className="cursor-pointer text-stone-700" />
         <LiaPenSolid fontSize={22} className="cursor-pointer text-stone-700" />

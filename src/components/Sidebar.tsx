@@ -29,7 +29,7 @@ const Sidebar = () => {
 
       <div className="flex gap-3 items-center ">
         <div className="h-12 w-12 rounded-full bg-zinc-400"></div>
-        <p className="font-semibold">@utk_07</p>
+        <p className="font-semibold">@utkarsh_075</p>
       </div>
     </div>
   );

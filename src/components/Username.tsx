@@ -7,7 +7,6 @@ import { useContext } from "react";
 import { UserContext } from "@/context/UserInfo";
 import { CircleAlert, CircleCheck, Loader } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import SocialLink from "@/pages/SocialLink";
 
 const Username = () => {
   const navigate = useNavigate();

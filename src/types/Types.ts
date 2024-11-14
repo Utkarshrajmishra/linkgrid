@@ -5,7 +5,24 @@ export interface UserInfoTypes{
     bio:string,
     soicalProviders:Number[]
     name:string,
-    socialLink:string[],
+    socialLink:LinkTypes[],
+    profileImage:string
+}
+
+export interface AuthInfoTypes{
+    isLogin:boolean,
+    userEmail:string,
+}
+
+export interface AuthContextTypes{
+    auth:AuthInfoTypes,
+    setAuth:(auth:AuthInfoTypes)=>void,
+}
+
+export interface LinkTypes{
+    link:string,
+    status:boolean,
+    totalClicks:Number
 }
 
 export interface UserContextTypes{

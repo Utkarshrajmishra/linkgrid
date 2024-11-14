@@ -13,7 +13,7 @@ export const Icons = [
   {
     title: "Instagram",
     icon: Insta,
-    message: "Input the Instagram username",
+    message: "Input the Instagram profile url",
   },
   {
     title: "Website",
@@ -28,36 +28,36 @@ export const Icons = [
   {
     title: "Snapchat",
     icon: Snap,
-    message: "Input your Snapchat username",
+    message: "Input link to Snapchat ID",
   },
   {
     title: "Spotify",
     icon: Spotify,
-    message: "Input your Spotify username",
+    message: "Input link to your Spotify ID",
   },
   {
     title: "X (Twitter)",
     icon: X,
-    message: "Input your X (Twitter)",
+    message: "Input link to your X ID",
   },
   {
     title: "YouTube",
     icon: Youtube,
-    message:"Input your channel name"
+    message:"Input link to your Youtube Channel"
   },
   {
     title: "Facebook",
     icon: Facebook,
-    message:"Input your facebook"
+    message:"Input link to your Facebook ID"
   },
   {
     title: "Amazon",
     icon: Amazon,
-    message:"Input your amazon link"
+    message:"Input your Amazon link"
   },
   {
     title: "SoundCloud",
     icon: CloudSound,
-    message:"InpuT your SoundCloud username"
+    message:"Input link to your SoundCloud"
   },
 ];

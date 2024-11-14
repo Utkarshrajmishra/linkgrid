@@ -2,10 +2,12 @@ import { FC, useContext, ChangeEvent } from "react";
 import { Input } from "./ui/input";
 import { Icons } from "@/constants/Icons";
 import { UserContext } from "@/context/UserInfo";
+import { LinkTypes } from "@/types/Types";
+
 
 interface LinkInputProps {
-  setLinks: (links: Array<string>) => void;
-  links: Array<string>;
+  setLinks: (links: Array<LinkTypes>) => void;
+  links: Array<LinkTypes>;
 }
 
 const LinkInput: FC<LinkInputProps> = ({ setLinks, links }) => {
@@ -13,7 +15,11 @@ const LinkInput: FC<LinkInputProps> = ({ setLinks, links }) => {
 
   const handleInput = (e: ChangeEvent<HTMLInputElement>, index: number) => {
     const updatedLinks = [...links];
-    updatedLinks[index] = e.target.value;
+    updatedLinks[index] = {
+      link: e.target.value,
+      totalClicks: 0,
+      status: true,
+    };
     setLinks(updatedLinks);
   };
 
@@ -23,7 +29,7 @@ const LinkInput: FC<LinkInputProps> = ({ setLinks, links }) => {
         <div key={index} className="flex gap-3 items-center">
           <img
             src={Icons[item]?.icon}
-            alt=""
+            alt="Icons"
             className="w-12 h-12 rounded-xl"
           />
           <Input

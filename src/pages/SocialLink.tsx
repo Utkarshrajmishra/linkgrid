@@ -4,15 +4,16 @@ import { useContext, useState, useEffect } from "react";
 import { UserContext } from "@/context/UserInfo";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/firebase";
-
+import { LinkTypes } from "@/types/Types";
 
 import { getAuth } from "firebase/auth";
+import { ColorRing } from "react-loader-spinner";
 const SocialLink = () => {
   const auth=getAuth();
   const email=auth.currentUser?.email;
-  console.log(email)
   const { userData, setUserData } = useContext(UserContext);
-  const [links, setLinks] = useState<any>([]);
+  const [links, setLinks] = useState<LinkTypes[]>([]);
+  const [loading,setLoading]=useState(false)
 
   useEffect(() => {
     if (userData?.soicalProviders) {
@@ -28,12 +29,15 @@ const SocialLink = () => {
 
 
   const submitData=async()=>{
-    try {
-      await setDoc(doc(db, "userInfo", `${email}`), userData);
-    } catch (error) {
-      console.log(error)
-    }
-    
+    // try {
+    //   await setDoc(doc(db, "userInfo", `${email}`), userData);
+    // } catch (error) {
+    //   console.log(error)
+    // }
+    // finally{
+    //   setLoading(false)
+    // }
+    console.log(userData)   
   }
 
   return (
@@ -44,10 +48,25 @@ const SocialLink = () => {
 
         <button
           type="submit"
+          //disabled={loading}
           onClick={handleClick}
           className="font-semibold md:mt-20 flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white h-12 md:w-[500px] w-full rounded-3xl"
         >
-          Continue
+          {
+            loading?
+          (
+              <ColorRing
+              visible={true}
+              height="40"
+              width="40"
+              ariaLabel="color-ring-loading"
+              wrapperStyle={{}}
+              wrapperClass="color-ring-wrapper"
+              colors={["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"]}
+            />
+          ):
+          "Continue"
+          }
         </button>
       </section>
     </div>

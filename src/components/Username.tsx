@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { UserContext } from "@/context/UserInfo";
 import { CircleAlert, CircleCheck, Loader } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import SocialLink from "@/pages/SocialLink";
 
 const Username = () => {
   const navigate = useNavigate();
@@ -17,9 +18,9 @@ const Username = () => {
   const { userData, setUserData } = useContext(UserContext);
   const [userNotFound, setUserNotFound] = useState(false);
   const [data, setData] = useState({
-    userId:"",
-    bios:"",
-    name:""
+    userId: "",
+    bios: "",
+    name: "",
   });
   const [error, setError] = useState("");
 
@@ -31,13 +32,12 @@ const Username = () => {
       return;
     }
 
-
     const fetchUserName = async () => {
       setLoading((prev) => ({ ...prev, searching: true }));
       try {
         const q = query(
-          collection(db, "userName"),
-          where("userId", "==", data.userId)
+          collection(db, "userInfo"),
+          where("username", "==", data.userId)
         );
         const querySnapshot = await getDocs(q);
 
@@ -59,15 +59,19 @@ const Username = () => {
     return () => clearTimeout(timeoutId);
   }, [data.userId]);
 
-  const handleSubmit =  (e: any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    const temp = { ...userData, username: data.userId, name:data.name,  bio:data.bios, };
+    const temp = {
+      ...userData,
+      username: data.userId,
+      name: data.name,
+      bio: data.bios,
+    };
     setUserData(temp);
     console.log(temp);
     navigate("/template");
   };
 
-  
   return (
     <section className="flex flex-col justify-center items-center w-[300px] md:w-full md:px-14 gap-8 font-inter">
       <div className="flex flex-col gap-3 items-center">
@@ -105,16 +109,16 @@ const Username = () => {
         <div>
           <Input
             type="text"
-            onChange={(e)=>setData({...data,name:e.target.value})}
+            onChange={(e) => setData({ ...data, name: e.target.value })}
             placeholder="Input your name"
             className="h-12 bg-zinc-100 pl-4 pr-10 outline outline-0 hover:outline-1 outline-zinc-400 shadow-none w-full"
           />
         </div>
         <div>
           <Textarea
-          onChange={(e)=>setData({...data, bios:e.target.value})}
+            onChange={(e) => setData({ ...data, bios: e.target.value })}
             rows={5}
-            placeholder="Input your bios (Try to keep it short and crisp)"
+            placeholder="Input your bios (Try to keep it short and not more than 60 letters)"
             className=" bg-zinc-100 pl-4 pr-10 outline outline-0 hover:outline-1 outline-zinc-400 shadow-none w-full"
           />
         </div>

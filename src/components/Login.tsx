@@ -33,6 +33,7 @@ const Login: FC<LoginProps> = ({ authSwitcher }: LoginProps) => {
         data.email,
         data.password
       );
+      if(user)
       navigation('/admin')
 
     } catch (error) {

@@ -9,6 +9,7 @@ export const UserContext = createContext<UserContextTypes>({
     name: "",
     soicalProviders:[],
     socialLink:[],
+    profileImage:""
   },
   setUserData: () => {},
 });
@@ -21,6 +22,7 @@ export const UserContextProvider = ({ children }: { children: ReactNode }) => {
     name: "",
     soicalProviders: [],
     socialLink:[],
+    profileImage:""
   });
 
   const contextValue: UserContextTypes = {

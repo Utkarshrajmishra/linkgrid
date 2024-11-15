@@ -29,15 +29,16 @@ const SocialLink = () => {
 
 
   const submitData=async()=>{
-    // try {
-    //   await setDoc(doc(db, "userInfo", `${email}`), userData);
-    // } catch (error) {
-    //   console.log(error)
-    // }
-    // finally{
-    //   setLoading(false)
-    // }
-    console.log(userData)   
+    setLoading(true)
+    try {
+      await setDoc(doc(db, "userInfo", `${email}`), userData);
+    } catch (error) {
+      console.log(error)
+    }
+    finally{
+      setLoading(false)
+    }
+   // console.log(userData)   
   }
 
   return (

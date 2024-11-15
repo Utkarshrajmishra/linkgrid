@@ -4,8 +4,17 @@ import Links from "@/components/Links";
 import Preview from "@/components/Preview";
 import DialogComp from "@/components/Dialog";
 import { useState } from "react";
+import { AlertDialogComp } from "@/components/Alert";
 const Home = () => {
   const [openDialog,setDilogOpen]=useState<boolean>(false)
+  const [data,setData]=useState({
+    link:"",
+    status:true,
+    totalCount:0,
+    title:''
+
+  })
+
   return (
     <>
       <div className="flex">
@@ -27,7 +36,8 @@ const Home = () => {
           <BottonNav />
         </div>
         <div>
-          <DialogComp  open={openDialog} setOpen={setDilogOpen}/>
+          <DialogComp data={data} setData={setData}  open={openDialog} setOpen={setDilogOpen}/>
+          <AlertDialogComp />
         </div>
       </div>
     </>

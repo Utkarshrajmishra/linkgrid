@@ -1,12 +1,12 @@
 import { createContext, ReactNode, useState } from "react";
-import { AuthContextTypes } from "@/types/Types";
+import { AuthContextTypes, AuthInfoTypes } from "@/types/Types";
 
 export const AuthContext = createContext<AuthContextTypes>({
   auth: {
     isLogin: false,
     userEmail: "",
   },
-  setAuth: () => {},
+  setAuth: (currentAuth:AuthInfoTypes) => {},
 });
 
 export const AuthContextProvider = ({ children }: { children: ReactNode }) => {

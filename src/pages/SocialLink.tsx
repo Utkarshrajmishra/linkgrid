@@ -27,7 +27,6 @@ const SocialLink = () => {
     submitData()
   };
 
-
   const submitData=async()=>{
     setLoading(true)
     try {

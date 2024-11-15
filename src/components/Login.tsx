@@ -36,10 +36,11 @@ const Login: FC<LoginProps> = ({ authSwitcher }: LoginProps) => {
         data.password
       );
 
-      setAuth({
-        isLogin:true,
-        userEmail:data.email,
-      })
+      sessionStorage.setItem(
+        "Auth",
+        JSON.stringify({ isLogin: true, email: data.email })
+      );
+
       
       if(user)
       navigation('/admin')

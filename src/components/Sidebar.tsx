@@ -1,10 +1,9 @@
 import { Setting } from "@/constants/Setting";
-import { getAuth } from "firebase/auth";
 import Logo from "../assets/image/black-logo.png";
 const Sidebar = () => {
-  const auth = getAuth();
-  const user = auth.currentUser;
-  console.log(user);
+  //const auth = getAuth();
+  //const user = auth.currentUser;
+  //console.log(user);
 
   return (
     <div className=" bg-stone-50 p-5 h-[100vh] flex flex-col justify-between border-r border-gray-400">

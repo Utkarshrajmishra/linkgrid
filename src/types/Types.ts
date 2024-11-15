@@ -21,8 +21,8 @@ export interface AuthContextTypes{
 
 export interface LinkTypes{
     link:string,
-    status:boolean,
-    totalClicks:Number
+    show:boolean,
+    totalClicks:Number,
 }
 
 export interface UserContextTypes{

@@ -3,17 +3,49 @@ import BottonNav from "@/components/BottomNav";
 import Links from "@/components/Links";
 import Preview from "@/components/Preview";
 import DialogComp from "@/components/Dialog";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import { AlertDialogComp } from "@/components/Alert";
+import { db } from "@/firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { UserContext } from "@/context/UserInfo";
+import { UserInfoTypes } from "@/types/Types";
+import { AuthContext } from "@/context/Auth";
 const Home = () => {
-  const [openDialog,setDilogOpen]=useState<boolean>(false)
-  const [data,setData]=useState({
-    link:"",
-    status:true,
-    totalCount:0,
-    title:''
+  const { setUserData } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
+  const [openDialog, setDilogOpen] = useState<boolean>(false);
+  const [data, setData] = useState({
+    link: "",
+    status: true,
+    totalCount: 0,
+    title: "",
+  });
 
-  })
+
+  useEffect(() => {
+    const fetchData = async () => {
+        const authData = JSON.parse(sessionStorage.getItem("Auth") || "{}");
+
+
+      setLoading(true);
+      try {
+        const docRef = doc(db, "userInfo", `${authData.email}`);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+          const data = docSnap.data() as UserInfoTypes; 
+          setUserData({ ...data });
+          console.log(docSnap.data());
+        }
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  },[]);
 
   return (
     <>
@@ -25,7 +57,7 @@ const Home = () => {
 
         {/* Main Content Area */}
         <div className="flex-1 flex">
-          <Links setOpen={setDilogOpen}/>
+          {loading?"Loading":<Links  setOpen={setDilogOpen} />}
           <div className="hidden md:inline-block bg-stone-50 w-[40%]">
             <Preview />
           </div>
@@ -36,7 +68,12 @@ const Home = () => {
           <BottonNav />
         </div>
         <div>
-          <DialogComp data={data} setData={setData}  open={openDialog} setOpen={setDilogOpen}/>
+          <DialogComp
+            data={data}
+            setData={setData}
+            open={openDialog}
+            setOpen={setDilogOpen}
+          />
           <AlertDialogComp />
         </div>
       </div>

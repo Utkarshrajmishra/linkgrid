@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { FC, useState } from "react";
 import GithubBtn from "./Github-btn";
 import GoogleBtn from "./Google-Btn";
 import { Input } from "./ui/input";
@@ -9,14 +9,12 @@ import app from "@/firebase";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { ColorRing } from "react-loader-spinner";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "@/context/Auth";
 
 interface LoginProps {
   authSwitcher: (value: boolean) => void;
 }
 
 const Login: FC<LoginProps> = ({ authSwitcher }: LoginProps) => {
-  const {setAuth}=useContext(AuthContext)
   const [loading, setLoading] = useState(false);
   const {
     register,
@@ -40,7 +38,6 @@ const Login: FC<LoginProps> = ({ authSwitcher }: LoginProps) => {
         "Auth",
         JSON.stringify({ isLogin: true, email: data.email })
       );
-
       
       if(user)
       navigation('/admin')

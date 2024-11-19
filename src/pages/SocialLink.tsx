@@ -21,24 +21,30 @@ const SocialLink = () => {
     }
   }, [userData]);
 
-  const handleClick = () => {
-    const data = { ...userData, socialLink : links}
-    setUserData(data)
-    submitData()
-  };
+    const handleClick = () => {
+      const updatedData = { ...userData, socialLink: links };
+      console.log("Before updating userData", userData);
+      console.log("Updated data:", updatedData);
 
-  const submitData=async()=>{
-    setLoading(true)
-    try {
-      await setDoc(doc(db, "userInfo", `${email}`), userData);
-    } catch (error) {
-      console.log(error)
-    }
-    finally{
-      setLoading(false)
-    }
-   // console.log(userData)   
-  }
+      // Update userData in context
+      setUserData(updatedData);
+
+      // Submit the updated data to Firebase
+      submitData(updatedData); // Pass the updated data here
+    };
+
+    const submitData = async (data: typeof userData) => {
+      setLoading(true);
+      try {
+        await setDoc(doc(db, "userInfo", `${email}`), data); // Use the updated data
+        console.log("Data submitted successfully", data);
+        
+      } catch (error) {
+        console.log("Error submitting data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
   return (
     <div className="flex justify-center items-center min-h-screen">

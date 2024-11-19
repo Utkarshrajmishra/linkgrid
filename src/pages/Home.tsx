@@ -9,7 +9,7 @@ import { db } from "@/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { UserContext } from "@/context/UserInfo";
 import { UserInfoTypes } from "@/types/Types";
-import { AuthContext } from "@/context/Auth";
+
 const Home = () => {
   const { setUserData } = useContext(UserContext);
   const [loading, setLoading] = useState(false);

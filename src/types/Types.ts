@@ -1,41 +1,39 @@
-
-export interface UserInfoTypes{
-    username:string,
-    template:Number,
-    bio:string,
-    soicalProviders:Number[]
-    name:string,
-    socialLink:LinkTypes[],
-    profileImage:string
+export interface UserInfoTypes {
+  username: string;
+  template: Number;
+  bio: string;
+  soicalProviders: Number[];
+  name: string;
+  socialLink: LinkTypes[];
+  profileImage: string;
 }
 
-export interface AuthInfoTypes{
-    isLogin:boolean,
-    userEmail:string,
+export interface AuthInfoTypes {
+  isLogin: boolean;
+  userEmail: string;
 }
 
-export interface AuthContextTypes{
-    auth:AuthInfoTypes,
-    setAuth:(auth:AuthInfoTypes)=>void,
+export interface AuthContextTypes {
+  auth: AuthInfoTypes;
+  setAuth: (auth: AuthInfoTypes) => void;
 }
 
-export interface LinkTypes{
-    link:string,
-    show:boolean,
-    totalClicks:Number,
+export interface LinkTypes {
+  link: string;
+  show: boolean;
+  totalClicks: Number;
 }
 
-export interface UserContextTypes{
-    userData:UserInfoTypes,
-    setUserData:(userData:UserInfoTypes)=>void;
+export interface UserContextTypes {
+  userData: UserInfoTypes;
+  setUserData: (userData: UserInfoTypes) => void;
 }
-
 
 export interface LinksTypes {
   link: string;
-  status: boolean;
+  show: boolean;
   title: string;
-  totalCount: number;
+  totalCount: Number;
 }
 
 export interface LinkContextTypes {

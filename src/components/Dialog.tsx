@@ -9,10 +9,10 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { UserLinkContext } from "@/context/UserLink";
 import { db } from "@/firebase";
-import { getAuth } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
-import { FC,  useState } from "react";
+import { FC,  useContext,  useState } from "react";
 import { ColorRing } from "react-loader-spinner";
 
 interface DialogProps {
@@ -21,16 +21,16 @@ interface DialogProps {
   setData: (data: any) => void;
   data: {
     link: string;
-    status: boolean;
+    show: boolean;
     totalCount: Number;
     title: string;
   };
 }
 
 const DialogComp: FC<DialogProps> = ({ open, setOpen, setData, data }) => {
-  const auth=getAuth()
-  const userEmail=auth.currentUser?.email
   const [loading, setLoading] = useState(false);
+  const user = JSON.parse(sessionStorage.getItem("Auth") || "{}");
+  const { userLink, setUserLink } = useContext(UserLinkContext);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -40,18 +40,22 @@ const DialogComp: FC<DialogProps> = ({ open, setOpen, setData, data }) => {
   };
 
   const handleSubmit = async () => {
-   setLoading(true);
-   try {
-     await setDoc(doc(db, "userLink", `${userEmail}`), data);
-   } catch (error) {
-     console.log(error);
-   } finally {
-     setLoading(false);
-   }
+    setLoading(true);
+    try {
+      const updatedLinks = [...userLink, data];
+      await setDoc(doc(db, "userLink", `${user.email}`), 
+      {link:updatedLinks});
+      setUserLink(updatedLinks); 
+      setOpen(false); 
+    } catch (error) {
+      console.error("Error updating links:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <Dialog open={open} onOpenChange={() => setOpen(false)}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle className="font-inter">Add Link</DialogTitle>
@@ -97,8 +101,6 @@ const DialogComp: FC<DialogProps> = ({ open, setOpen, setData, data }) => {
                 height="40"
                 width="40"
                 ariaLabel="color-ring-loading"
-                wrapperStyle={{}}
-                wrapperClass="color-ring-wrapper"
                 colors={["#ffffff", "#ffffff", "#ffffff", "#ffffff", "#ffffff"]}
               />
             ) : (

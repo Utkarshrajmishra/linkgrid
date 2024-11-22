@@ -8,7 +8,7 @@ import { AlertDialogComp } from "@/components/Alert";
 import { db } from "@/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { UserContext } from "@/context/UserInfo";
-import { UserInfoTypes } from "@/types/Types";
+import { UserInfoTypes, LinksTypes } from "@/types/Types";
 
 const Home = () => {
   const { setUserData } = useContext(UserContext);
@@ -20,33 +20,41 @@ const Home = () => {
     totalCount: 0,
     title: "",
   });
-
-
+  
   useEffect(() => {
-    const fetchData = async () => {
-        const authData = JSON.parse(sessionStorage.getItem("Auth") || "{}");
-
+   
+     const fetchData = async () => {
+      const authData = JSON.parse(sessionStorage.getItem("Auth") || "{}");
 
       setLoading(true);
-      try {
-        const docRef = doc(db, "userInfo", `${authData.email}`);
-        const docSnap = await getDoc(docRef);
+        // Fetch userInfo document
+        try {
+          const userInfoRef = doc(db, "userInfo", `${authData.email}`);
+          const userInfoSnap = await getDoc(userInfoRef);
 
-        if (docSnap.exists()) {
-          const data = docSnap.data() as UserInfoTypes; 
-          setUserData({ ...data });
-          console.log(docSnap.data());
+          if (userInfoSnap.exists()) {
+            const userData = userInfoSnap.data() as UserInfoTypes;
+            setUserData({ ...userData });
+          } else {
+            console.log(
+              "No userInfo document found for email:",
+              authData.email
+            );
+          }
+        } catch (userInfoError) {
+          console.error("Error fetching userInfo document:", userInfoError);
         }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setLoading(false);
-      }
-    };
 
-    fetchData();
-  },[]);
+      
+    
+    }
 
+    fetchData()
+  }, []);
+
+
+
+  
   return (
     <>
       <div className="flex">
@@ -57,7 +65,8 @@ const Home = () => {
 
         {/* Main Content Area */}
         <div className="flex-1 flex">
-          {loading?"Loading":<Links  setOpen={setDilogOpen} />}
+          {loading?"Loading":
+          <Links  setOpen={setDilogOpen} />}
           <div className="hidden md:inline-block bg-stone-50 w-[40%]">
             <Preview />
           </div>

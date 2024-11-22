@@ -29,3 +29,16 @@ export interface UserContextTypes{
     userData:UserInfoTypes,
     setUserData:(userData:UserInfoTypes)=>void;
 }
+
+
+export interface LinksTypes {
+  link: string;
+  status: boolean;
+  title: string;
+  totalCount: number;
+}
+
+export interface LinkContextTypes {
+  userLink: LinksTypes[];
+  setUserLink: (userLink: LinksTypes[]) => void;
+}

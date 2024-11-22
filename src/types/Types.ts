@@ -33,7 +33,7 @@ export interface LinksTypes {
   link: string;
   show: boolean;
   title: string;
-  totalCount: Number;
+  totalClicks: Number;
 }
 
 export interface LinkContextTypes {

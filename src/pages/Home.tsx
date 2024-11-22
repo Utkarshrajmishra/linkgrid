@@ -19,7 +19,7 @@ const Home = () => {
   const [data, setData] = useState({
     link: "",
     show: true,
-    totalCount: 0,
+    totalClicks: 0,
     title: "",
   });
 
@@ -42,7 +42,7 @@ const Home = () => {
         const linkSnap = await getDoc(userLinkRef);
         if (linkSnap.exists()) {
           const dataLink = linkSnap.data()
-          console.log(dataLink.link)
+          setUserLink(dataLink.link)
         }
       } catch (error) {
         console.error("Error fetching data:", error);

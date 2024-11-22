@@ -6,27 +6,38 @@ import { PiChartLine } from "react-icons/pi";
 import { LinkTypes } from "@/types/Types";
 import { Icons } from "@/constants/Icons";
 
+interface Link{
+   link: string;
+  show: boolean;
+  title: string;
+  totalClicks: Number;
+}
+
 interface LinkContainerProps {
-  data: LinkTypes;
-  provider: Number;
+  data: LinkTypes | null;
+  provider: Number | null;
+  userLink: Link | null;
 }
 
 const LinkContainer: FC<LinkContainerProps> = ({
   data,
   provider,
+  userLink
 }: LinkContainerProps) => {
   return (
     <div className="w-full font-inter flex flex-col gap-3 h-fit p-4 bg-white outline outline-1 outline-gray-400 rounded-xl">
       <div className="flex  items-center justify-between">
         <div className="flex gap-2">
-          <p className="font-semibold">{Icons[Number(provider)].title}</p>
+          <p className="font-semibold">
+            {provider != null && data!=null ? Icons[Number(provider)].title : userLink?.title}
+          </p>
         </div>
       </div>
       <div className="flex gap-2">
-        <p className="text-sm">{data.link}</p>
+        <p className="text-sm">{provider != null && data!=null?data.link: userLink?.link}</p>
       </div>
       <div className="flex  gap-3">
-        <Switch checked={data.show} />
+        <Switch checked={provider != null && data!=null? data.show: userLink?.show} />
         <AiOutlineDelete
           fontSize={22}
           className="cursor-pointer text-stone-700"

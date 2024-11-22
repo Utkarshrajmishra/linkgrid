@@ -22,7 +22,7 @@ interface DialogProps {
   data: {
     link: string;
     show: boolean;
-    totalCount: Number;
+    totalClicks: Number;
     title: string;
   };
 }

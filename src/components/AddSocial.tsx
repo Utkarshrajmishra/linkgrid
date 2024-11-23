@@ -18,25 +18,28 @@ const AddSocial = () => {
   };
 
   return (
-    <div className="flex flex-wrap gap-4 justify-center">
-      {Icons.map((item, index) => (
-        <div
-          className={`${
-            socialLinks.includes(index) || index == 1
-              ? "hidden"
-              : "inline-block"
-          } outline-1 outline-black  ${
-            soicalProviders.includes(index) ? "outline" : " "
-          }`}
-        >
-          <img
-            onClick={() => handleClick(index)}
-            width={38}
-            src={item.icon}
-            alt={item.title}
-          />
-        </div>
-      ))}
+    <div className="flex flex-col gap-3">
+        <p  className="text-sm font-inter text-zinc-600">Click on icon to select the provider.</p>
+      <div className="flex flex-wrap gap-4 justify-center">
+        {Icons.map((item, index) => (
+          <div
+            className={`${
+              socialLinks.includes(index) || index == 1
+                ? "hidden"
+                : "inline-block"
+            } outline-1 outline-black  ${
+              soicalProviders.includes(index) ? "outline" : " "
+            }`}
+          >
+            <img
+              onClick={() => handleClick(index)}
+              width={38}
+              src={item.icon}
+              alt={item.title}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

@@ -14,6 +14,7 @@ import { db } from "@/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { FC,  useContext,  useState } from "react";
 import { ColorRing } from "react-loader-spinner";
+import AddSocial from "./AddSocial";
 
 interface DialogProps {
   open: boolean;
@@ -63,7 +64,7 @@ const DialogComp: FC<DialogProps> = ({ open, setOpen, setData, data }) => {
             Make changes to your profile here. Click save when you're done.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 font-inter">
+        {/* <div className="grid gap-4 font-inter">
           <div className="items-center">
             <Label htmlFor="title" className="text-right">
               Title
@@ -88,7 +89,8 @@ const DialogComp: FC<DialogProps> = ({ open, setOpen, setData, data }) => {
               className="col-span-3"
             />
           </div>
-        </div>
+        </div> */}
+        <AddSocial />
         <DialogFooter>
           <Button
             onClick={handleSubmit}

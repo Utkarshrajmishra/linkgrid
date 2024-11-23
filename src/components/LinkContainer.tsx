@@ -29,15 +29,27 @@ const LinkContainer: FC<LinkContainerProps> = ({
       <div className="flex  items-center justify-between">
         <div className="flex gap-2">
           <p className="font-semibold">
-            {provider != null && data!=null ? Icons[Number(provider)].title : userLink?.title}
+            {provider != null && data != null
+              ? Icons[Number(provider)].title
+              : userLink?.title}
           </p>
         </div>
       </div>
       <div className="flex gap-2">
-        <p className="text-sm">{provider != null && data!=null?data.link: userLink?.link}</p>
+        <a
+         target="_blank"
+          href={provider != null && data != null ? data.link : userLink?.link}
+          className="text-sm underline"
+        >
+          {provider != null && data != null ? data.link : userLink?.link}
+        </a>
       </div>
       <div className="flex  gap-3">
-        <Switch checked={provider != null && data!=null? data.show: userLink?.show} />
+        <Switch
+          checked={
+            provider != null && data != null ? data.show : userLink?.show
+          }
+        />
         <AiOutlineDelete
           fontSize={22}
           className="cursor-pointer text-stone-700"

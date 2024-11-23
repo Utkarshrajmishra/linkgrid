@@ -9,12 +9,13 @@ import { db } from "@/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import { UserContext } from "@/context/UserInfo";
 import { UserLinkContext } from "@/context/UserLink";
-import { LinkTypes, UserInfoTypes } from "@/types/Types";
-
+import {  UserInfoTypes } from "@/types/Types";
+import SelectionDialog from "@/components/SelectionDialog";
 const Home = () => {
   const { setUserData } = useContext(UserContext);
   const { setUserLink } = useContext(UserLinkContext);
   const [loading, setLoading] = useState(false);
+  const [openSelection,setOpenSelection]=useState(false)
   const [openDialog, setDialogOpen] = useState(false);
   const [data, setData] = useState({
     link: "",
@@ -63,7 +64,7 @@ const Home = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex">
-        {loading ? "Loading..." : <Links setOpen={setDialogOpen} />}
+        {loading ? "Loading..." : <Links setOpen={setOpenSelection} />}
         <div className="hidden md:inline-block bg-stone-50 w-[40%]">
           <Preview />
         </div>
@@ -82,6 +83,11 @@ const Home = () => {
         setOpen={setDialogOpen}
       />
       <AlertDialogComp />
+      <SelectionDialog
+        openSelection={openSelection}
+        setOpen={setDialogOpen}
+        setSelectionOpen={setOpenSelection}
+      />
     </div>
   );
 };

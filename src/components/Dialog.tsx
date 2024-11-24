@@ -29,7 +29,7 @@ const DialogComp: FC<DialogProps> = ({ index,setIndex,open, setOpen, setData, da
 
   const components = [
     <AddSocial setIndex={setIndex}/>, // AddSocial doesn't need props based on current code
-    <SocialInput />, // SocialInput doesn't need props based on current code
+    <SocialInput setOpen={setOpen}/>, // SocialInput doesn't need props based on current code
     <AddLink setData={setData} data={data} setOpen={setOpen} />, // AddLink needs props
   ];
 

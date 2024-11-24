@@ -1,5 +1,5 @@
 import { UserContext } from "@/context/UserInfo";
-import { FC, useContext, useEffect, useState } from "react";
+import { FC, useContext } from "react";
 import { Icons } from "@/constants/Icons";
 import { linkInputContext } from "@/context/Providers";
 import { Button } from "./ui/button";

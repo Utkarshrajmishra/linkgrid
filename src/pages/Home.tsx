@@ -12,6 +12,7 @@ import { UserLinkContext } from "@/context/UserLink";
 import {  UserInfoTypes } from "@/types/Types";
 import SelectionDialog from "@/components/SelectionDialog";
 const Home = () => {
+  const [indx,setIndx]=useState<Number>(0)
   const { setUserData } = useContext(UserContext);
   const { setUserLink } = useContext(UserLinkContext);
   const [loading, setLoading] = useState(false);
@@ -74,21 +75,24 @@ const Home = () => {
       <div className="md:hidden sm:block w-full fixed bottom-0 left-0 z-50">
         <BottonNav />
       </div>
-
-      {/* Dialogs */}
-      <DialogComp
-        data={data}
-        setData={setData}
-        open={openDialog}
-        setOpen={setDialogOpen}
-      />
-      <AlertDialogComp />
-      <SelectionDialog
-        openSelection={openSelection}
-        setOpen={setDialogOpen}
-        setSelectionOpen={setOpenSelection}
-      />
-    </div>
+        {" "}
+        {/* Dialogs */}
+        <DialogComp
+          index={indx}
+          setIndex={setIndx}
+          data={data}
+          setData={setData}
+          open={openDialog}
+          setOpen={setDialogOpen}
+        />
+        <AlertDialogComp />
+        <SelectionDialog
+          setIndex={setIndx}
+          openSelection={openSelection}
+          setOpen={setDialogOpen}
+          setSelectionOpen={setOpenSelection}
+        />
+      </div>
   );
 };
 

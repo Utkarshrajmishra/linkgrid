@@ -1,12 +1,19 @@
 import { UserContext } from "@/context/UserInfo";
-import { useContext } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 import { Icons } from "@/constants/Icons";
 import { linkInputContext } from "@/context/Providers";
-const AddSocial = () => {
+import { Button } from "./ui/button";
+
+interface AddSocialProps{
+  setIndex:(index:Number)=>void
+}
+
+
+const AddSocial:FC<AddSocialProps> = ({setIndex}:AddSocialProps) => {
   const {provider,setProvider}=useContext(linkInputContext)
   const { userData } = useContext(UserContext);
   const socialLinks = userData.soicalProviders;
-
+  
   const handleClick = (index: any) => {
     const temp = [...provider.providersIndex];
     if (temp.includes(index)) {
@@ -21,7 +28,9 @@ const AddSocial = () => {
 
   return (
     <div className="flex flex-col gap-3">
-        <p  className="text-sm font-inter text-zinc-600">Click on icon to select the provider.</p>
+      <p className="text-sm font-inter text-zinc-600">
+        Click on icon to select the provider.
+      </p>
       <div className="flex flex-wrap gap-4 justify-center">
         {Icons.map((item, index) => (
           <div
@@ -42,6 +51,15 @@ const AddSocial = () => {
             />
           </div>
         ))}
+        <div className="flex w-[100%] justify-end">
+          <Button
+            disabled={provider.providersIndex.length==0}
+            onClick={() => setIndex(1)}
+            className="font-inter bg-purple-600 hover:bg-purple-700"
+          >
+            Continue
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -1,20 +1,22 @@
 import { UserContext } from "@/context/UserInfo";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Icons } from "@/constants/Icons";
+import { linkInputContext } from "@/context/Providers";
 const AddSocial = () => {
-  const [soicalProviders, setSocialProviders] = useState<Number[]>([]);
+  const {provider,setProvider}=useContext(linkInputContext)
   const { userData } = useContext(UserContext);
   const socialLinks = userData.soicalProviders;
 
   const handleClick = (index: any) => {
-    const temp = [...soicalProviders];
+    const temp = [...provider.providersIndex];
     if (temp.includes(index)) {
-      const indx = soicalProviders.indexOf(index);
+      const indx = temp.indexOf(index);
       temp.splice(indx, 1);
-      return setSocialProviders(temp);
+      return setProvider({...provider, providersIndex: temp})
     }
-    setSocialProviders(prev=>[...prev, index]);
-    console.log(temp)
+    
+    setProvider({ ...provider, providersIndex: [...temp, index] });
+    //console.log(temp)
   };
 
   return (
@@ -23,12 +25,13 @@ const AddSocial = () => {
       <div className="flex flex-wrap gap-4 justify-center">
         {Icons.map((item, index) => (
           <div
+            key={index}
             className={`${
               socialLinks.includes(index) || index == 1
                 ? "hidden"
                 : "inline-block"
             } outline-1 outline-black  ${
-              soicalProviders.includes(index) ? "outline" : " "
+              provider.providersIndex.includes(index) ? "outline" : " "
             }`}
           >
             <img

@@ -22,6 +22,7 @@ const Links:FC<LinkProps> = ({setOpen}:LinkProps) => {
       {userData.bio &&
         userData.socialLink.map((item, index) => (
           <LinkContainer
+            index={index}
             data={item}
             provider={userData.soicalProviders[index]}
             userLink={null}
@@ -32,7 +33,7 @@ const Links:FC<LinkProps> = ({setOpen}:LinkProps) => {
     {
       userLink &&
       userLink.map((item,index)=>(
-                <LinkContainer data={null}  provider={null} userLink={item}/>
+                <LinkContainer index={null} data={null}  provider={null} userLink={item}/>
 
       ))
 

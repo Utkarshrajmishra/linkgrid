@@ -6,12 +6,16 @@ import DialogComp from "@/components/Dialog";
 import { useState, useEffect, useContext } from "react";
 import { AlertDialogComp } from "@/components/Alert";
 import { db } from "@/firebase";
+import PopOver from "@/components/PopOver";
 import { doc, getDoc } from "firebase/firestore";
 import { UserContext } from "@/context/UserInfo";
 import { UserLinkContext } from "@/context/UserLink";
 import {  UserInfoTypes } from "@/types/Types";
 import SelectionDialog from "@/components/SelectionDialog";
 const Home = () => {
+  const [openPopup,setOpenPopup]=useState({
+    signout:false
+  })
   const [indx,setIndx]=useState<Number>(0)
   const { setUserData } = useContext(UserContext);
   const { setUserLink } = useContext(UserLinkContext);
@@ -60,9 +64,8 @@ const Home = () => {
     <div className="flex">
       {/* Sidebar */}
       <div className="hidden md:block">
-        <Sidebar />
+        <Sidebar open={openPopup}  setOpen={setOpenPopup}/>
       </div>
-
       {/* Main Content */}
       <div className="flex-1 flex">
         {loading ? "Loading..." : <Links setOpen={setOpenSelection} />}
@@ -70,29 +73,28 @@ const Home = () => {
           <Preview />
         </div>
       </div>
-
       {/* Bottom Navigation */}
       <div className="md:hidden sm:block w-full fixed bottom-0 left-0 z-50">
         <BottonNav />
-      </div>
-        {" "}
-        {/* Dialogs */}
-        <DialogComp
-          index={indx}
-          setIndex={setIndx}
-          data={data}
-          setData={setData}
-          open={openDialog}
-          setOpen={setDialogOpen}
-        />
-        <AlertDialogComp />
-        <SelectionDialog
-          setIndex={setIndx}
-          openSelection={openSelection}
-          setOpen={setDialogOpen}
-          setSelectionOpen={setOpenSelection}
-        />
-      </div>
+      </div>{" "}
+      {/* Dialogs */}
+      <DialogComp
+        index={indx}
+        setIndex={setIndx}
+        data={data}
+        setData={setData}
+        open={openDialog}
+        setOpen={setDialogOpen}
+      />
+      <AlertDialogComp />
+      <SelectionDialog
+        setIndex={setIndx}
+        openSelection={openSelection}
+        setOpen={setDialogOpen}
+        setSelectionOpen={setOpenSelection}
+      />
+      <PopOver open={openPopup} setOpen={setOpenPopup} />
+    </div>
   );
 };
 

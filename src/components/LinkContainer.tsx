@@ -47,8 +47,8 @@ const LinkContainer: FC<LinkContainerProps> = ({
           template: userData.template,
           bio: userData.bio,
           name: userData.name,
-          soicalProviders: userData.soicalProviders,
-          socialLink: userData.socialLink,
+          soicalProviders: provider,
+          socialLink: link,
           profileImage: userData.profileImage,
         });
         setUserData({

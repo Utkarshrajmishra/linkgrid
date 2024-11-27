@@ -6,16 +6,13 @@ import DialogComp from "@/components/Dialog";
 import { useState, useEffect, useContext } from "react";
 import { AlertDialogComp } from "@/components/Alert";
 import { db } from "@/firebase";
-import PopOver from "@/components/PopOver";
 import { doc, getDoc } from "firebase/firestore";
 import { UserContext } from "@/context/UserInfo";
 import { UserLinkContext } from "@/context/UserLink";
 import {  UserInfoTypes } from "@/types/Types";
 import SelectionDialog from "@/components/SelectionDialog";
 const Home = () => {
-  const [openPopup,setOpenPopup]=useState({
-    signout:false
-  })
+ 
   const [indx,setIndx]=useState<Number>(0)
   const { setUserData } = useContext(UserContext);
   const { setUserLink } = useContext(UserLinkContext);
@@ -64,7 +61,7 @@ const Home = () => {
     <div className="flex">
       {/* Sidebar */}
       <div className="hidden md:block">
-        <Sidebar open={openPopup}  setOpen={setOpenPopup}/>
+        <Sidebar />
       </div>
       {/* Main Content */}
       <div className="flex-1 flex">
@@ -93,7 +90,7 @@ const Home = () => {
         setOpen={setDialogOpen}
         setSelectionOpen={setOpenSelection}
       />
-      <PopOver open={openPopup} setOpen={setOpenPopup} />
+    
     </div>
   );
 };

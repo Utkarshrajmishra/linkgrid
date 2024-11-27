@@ -18,12 +18,6 @@ const PopOver: FC<PopOverProps> = ({ open, setOpen }: PopOverProps) => {
       open={open.signout}
       onOpenChange={(isOpen) => setOpen({ ...open, signout: isOpen })}
     >
-      <button
-        onClick={() => setOpen({ ...open, signout: true })}
-        className="p-2 bg-gray-200"
-      >
-        Open Popover
-      </button>
 
       <PopoverContent className="w-80">
         <div className="grid gap-4">

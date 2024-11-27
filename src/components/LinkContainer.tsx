@@ -6,8 +6,9 @@ import { PiChartLine } from "react-icons/pi";
 import { LinkTypes } from "@/types/Types";
 import { Icons } from "@/constants/Icons";
 import { UserContext } from "@/context/UserInfo";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "@/firebase";
+import { deleteLink, deleteSocials } from "@/database/LinkContainer-Edit";
+import { UserLinkContext } from "@/context/UserLink";
+
 
 interface Link {
   link: string;
@@ -17,51 +18,64 @@ interface Link {
 }
 
 interface LinkContainerProps {
+  type:string,
   index: Number | null;
   data: LinkTypes | null;
   provider: Number | null;
-  userLink: Link | null;
+  link: Link | null;
 }
 
 const LinkContainer: FC<LinkContainerProps> = ({
+  type,
   index,
   data,
   provider,
-  userLink,
+  link,
 }: LinkContainerProps) => {
   const { userData, setUserData } = useContext(UserContext);
-  const user = sessionStorage.getItem("Auth")
-    ? JSON.parse(sessionStorage.getItem("Auth")!)
-    : null;
-
+  const { userLink,setUserLink } = useContext(UserLinkContext);
   const handleDelete = async () => {
+    if(type==='userInfo'){
     const provider = [...userData.soicalProviders];
     const link = [...userData.socialLink];
     provider.splice(Number(index), 1);
     link.splice(Number(index), 1);
-    try {
-      if (user && user.email) {
-        const docRef = doc(db, "userInfo", `${user.email}`);
-        await setDoc(docRef, {
-          username: userData.username,
-          template: userData.template,
-          bio: userData.bio,
-          name: userData.name,
-          soicalProviders: provider,
-          socialLink: link,
-          profileImage: userData.profileImage,
-        });
-        setUserData({
+     try {
+      const response=await deleteSocials(provider, link, userData)
+      
+         if (response && response?.status) {
+      console.log("Link deleted successfully.");
+       setUserData({
           ...userData,
           soicalProviders: provider,
           socialLink: link,
         });
-        console.log("Data updated");
-      }
-    } catch (error) {
-      console.log(error);
+
+    } else {
+      console.error("Error deleting link:", response.msg);
     }
+   }
+    catch (error) {
+      console.log(error)
+    }
+  }
+  else {
+      const temp=[...userLink]
+      temp.splice(Number(index),1)
+      try {
+        const response=await deleteLink(null, temp, null)
+        if (response && response?.status) {
+          setUserLink(temp)
+        }
+        else {
+          console.error("Error deleting link:", response.msg);
+        }
+      } catch (error) {
+        console.log(error)
+      }
+  }
   };
+
 
   return (
     <div className="w-full font-inter flex flex-col gap-3 h-fit p-4 bg-white outline outline-1 outline-gray-400 rounded-xl">
@@ -70,23 +84,23 @@ const LinkContainer: FC<LinkContainerProps> = ({
           <p className="font-semibold">
             {provider != null && data != null
               ? Icons[Number(provider)].title
-              : userLink?.title}
+              : link?.title}
           </p>
         </div>
       </div>
       <div className="flex gap-2">
         <a
           target="_blank"
-          href={provider != null && data != null ? data.link : userLink?.link}
+          href={provider != null && data != null ? data.link : link?.link}
           className="text-sm underline"
         >
-          {provider != null && data != null ? data.link : userLink?.link}
+          {provider != null && data != null ? data.link : link?.link}
         </a>
       </div>
       <div className="flex  gap-3">
         <Switch
           checked={
-            provider != null && data != null ? data.show : userLink?.show
+            provider != null && data != null ? data.show : link?.show
           }
         />
         <AiOutlineDelete

@@ -12,7 +12,9 @@ import { UserLinkContext } from "@/context/UserLink";
 import {  UserInfoTypes } from "@/types/Types";
 import SelectionDialog from "@/components/SelectionDialog";
 const Home = () => {
- 
+  const [openPopup,setOpenup]=useState({
+    
+  })
   const [indx,setIndx]=useState<Number>(0)
   const { setUserData } = useContext(UserContext);
   const { setUserLink } = useContext(UserLinkContext);

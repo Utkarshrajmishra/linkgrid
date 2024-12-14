@@ -23,9 +23,7 @@ const SocialLink = () => {
 
     const handleClick = () => {
       const updatedData = { ...userData, socialLink: links };
-      console.log("Before updating userData", userData);
-      console.log("Updated data:", updatedData);
-
+      
       // Update userData in context
       setUserData(updatedData);
 

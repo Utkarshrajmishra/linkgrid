@@ -22,6 +22,7 @@ export interface LinkTypes {
   link: string;
   show: boolean;
   totalClicks: Number;
+  title:string;
 }
 
 export interface UserContextTypes {

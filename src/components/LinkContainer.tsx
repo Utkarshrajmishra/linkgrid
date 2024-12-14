@@ -18,7 +18,9 @@ interface Link {
 }
 
 interface LinkContainerProps {
-  type:string,
+  setIndex: (index: number) => void;
+  setOpen:(open:boolean)=>void;
+  type: string;
   index: Number | null;
   data: LinkTypes | null;
   provider: Number | null;
@@ -81,7 +83,7 @@ const LinkContainer: FC<LinkContainerProps> = ({
     <div className="w-full font-inter flex flex-col gap-3 h-fit p-4 bg-white outline outline-1 outline-gray-400 rounded-xl">
       <div className="flex  items-center justify-between">
         <div className="flex gap-2">
-          <p className="font-semibold">
+          <p className="font-semibold" >
             {provider != null && data != null
               ? Icons[Number(provider)].title
               : link?.title}
@@ -92,7 +94,7 @@ const LinkContainer: FC<LinkContainerProps> = ({
         <a
           target="_blank"
           href={provider != null && data != null ? data.link : link?.link}
-          className="text-sm underline"
+          className="text-sm underline text-blue-700"
         >
           {provider != null && data != null ? data.link : link?.link}
         </a>
@@ -108,7 +110,7 @@ const LinkContainer: FC<LinkContainerProps> = ({
           fontSize={22}
           className="cursor-pointer text-stone-700"
         />
-        <PiChartLine fontSize={22} className="cursor-pointer text-stone-700" />
+        <PiChartLine  fontSize={22} className="cursor-pointer text-stone-700" />
         <LiaPenSolid fontSize={22} className="cursor-pointer text-stone-700" />
       </div>
 

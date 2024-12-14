@@ -12,9 +12,7 @@ import { UserLinkContext } from "@/context/UserLink";
 import {  UserInfoTypes } from "@/types/Types";
 import SelectionDialog from "@/components/SelectionDialog";
 const Home = () => {
-  const [openPopup,setOpenup]=useState({
-    
-  })
+  
   const [indx,setIndx]=useState<Number>(0)
   const { setUserData } = useContext(UserContext);
   const { setUserLink } = useContext(UserLinkContext);
@@ -67,7 +65,7 @@ const Home = () => {
       </div>
       {/* Main Content */}
       <div className="flex-1 flex">
-        {loading ? "Loading..." : <Links setOpen={setOpenSelection} />}
+        {loading ? "Loading..." : <Links  setIndex={setIndx}   setOpen={setOpenSelection} />}
         <div className="hidden md:inline-block bg-stone-50 w-[40%]">
           <Preview />
         </div>

@@ -19,6 +19,7 @@ const LinkInput: FC<LinkInputProps> = ({ setLinks, links }) => {
       link: e.target.value,
       totalClicks: 0,
       show: true,
+      title:"",
     };
     setLinks(updatedLinks);
   };

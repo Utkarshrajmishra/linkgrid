@@ -6,6 +6,7 @@ export const user = sessionStorage.getItem("Auth")
     : null;
 
 export const deleteSocials = async ( provider:any, link:any, userData: any) => {
+  console.log(user)
   try {
     const dbType =  "userInfo";
     const docRef = doc(db, dbType, `${user.email}`);

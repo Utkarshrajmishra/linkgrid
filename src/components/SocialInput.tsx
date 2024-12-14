@@ -23,7 +23,8 @@ const SocialInput:FC<SocialInputProps>=({setOpen}:SocialInputProps)=>{
         temp[Number(index)]={
             link: e.target.value,
             show: true,
-            totalClicks: 0
+            totalClicks: 0,
+            title:""
         }
         setData(temp)
     }

@@ -2,11 +2,10 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { FC, useState } from "react";
+import { FC } from "react";
 import AddSocial from "./AddSocial";
 import SocialInput from "./SocialInput";
 import AddLink from "./AddLink";

@@ -3,9 +3,10 @@ import { FC, useContext } from "react";
 import { Icons } from "@/constants/Icons";
 import { linkInputContext } from "@/context/Providers";
 import { Button } from "./ui/button";
+import { DialogIndexTypes } from "@/types/Types";
 
 interface AddSocialProps{
-  setIndex:(index:Number)=>void
+  setIndex:(data:DialogIndexTypes)=>void
 }
 
 
@@ -54,7 +55,7 @@ const AddSocial:FC<AddSocialProps> = ({setIndex}:AddSocialProps) => {
         <div className="flex w-[100%] justify-end">
           <Button
             disabled={provider.providersIndex.length==0}
-            onClick={() => setIndex(1)}
+            onClick={() => setIndex({index:1, dataTypes:'', dataIndex:0})}
             className="font-inter bg-purple-600 hover:bg-purple-700"
           >
             Continue

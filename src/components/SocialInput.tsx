@@ -37,7 +37,6 @@ const SocialInput:FC<SocialInputProps>=({setOpen}:SocialInputProps)=>{
         const linkArr=[...userData.socialLink, ...data]
         setUserData({...userData, soicalProviders:  providerArr, socialLink: linkArr})
         try {
-            
             await setDoc(
               doc(db, "userInfo", `${dataEmail.email}`),
               userData
@@ -53,7 +52,6 @@ const SocialInput:FC<SocialInputProps>=({setOpen}:SocialInputProps)=>{
             setLoading(false)
         }
 
-        // console.log(data)
     }
 
 

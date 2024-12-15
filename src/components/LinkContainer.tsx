@@ -3,7 +3,7 @@ import { Switch } from "./ui/switch";
 import { AiOutlineDelete } from "react-icons/ai";
 import { LiaPenSolid } from "react-icons/lia";
 import { PiChartLine } from "react-icons/pi";
-import { LinkTypes } from "@/types/Types";
+import { DialogIndexTypes, LinkTypes } from "@/types/Types";
 import { Icons } from "@/constants/Icons";
 import { UserContext } from "@/context/UserInfo";
 import { deleteLink, deleteSocials } from "@/database/LinkContainer-Edit";
@@ -17,12 +17,12 @@ interface Link {
 }
 
 interface LinkContainerProps {
-  setFormData:(data:LinkTypes) =>void;
-  formData:LinkTypes;
-  setIndex: (index: number) => void;
+  setFormData: (data: LinkTypes) => void;
+  formData: LinkTypes;
+  setIndex: (index: DialogIndexTypes) => void;
   setOpen: (open: boolean) => void;
   type: string;
-  index: Number | null;
+  index: number;
   data: LinkTypes | null;
   provider: Number | null;
   link: Link | null;
@@ -30,7 +30,9 @@ interface LinkContainerProps {
 
 const LinkContainer: FC<LinkContainerProps> = ({
   setFormData,
+  setOpen,
   formData,
+  setIndex,
   type,
   index,
   data,
@@ -77,10 +79,25 @@ const LinkContainer: FC<LinkContainerProps> = ({
     }
   };
 
-
-  const handleEdit=()=>{
-      
-  }
+  const handleEdit = () => {
+    const formdata = { ...formData };
+    if (provider != null && data != null) {
+      setFormData({
+        ...formdata,
+        title: Icons[Number(provider)].title,
+        link: data.link,
+        show:data.show,
+        totalClicks:data.totalClicks,
+      });
+    } else {
+      link
+        ? setFormData({ ...formdata, title: link?.title, link: link.link, show: link.show, totalClicks: link.totalClicks })
+        : console.log("some error have occured");
+    }
+    console.log(type)
+    setIndex({index:2, dataTypes:type, dataIndex: index});
+    setOpen(true);
+  };
 
   return (
     <div className="w-full font-inter flex flex-col gap-3 h-fit p-4 bg-white outline outline-1 outline-gray-400 rounded-xl">
@@ -115,7 +132,11 @@ const LinkContainer: FC<LinkContainerProps> = ({
           className="cursor-pointer text-stone-700"
         />
         <PiChartLine fontSize={22} className="cursor-pointer text-stone-700" />
-        <LiaPenSolid onClick={handleEdit} fontSize={22} className="cursor-pointer text-stone-700" />
+        <LiaPenSolid
+          onClick={handleEdit}
+          fontSize={22}
+          className="cursor-pointer text-stone-700"
+        />
       </div>
 
       {/* <button className=" w-full font-semibold flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white h-8 rounded-3xl">

@@ -3,24 +3,25 @@ import LinkContainer from "./LinkContainer";
 import { AiOutlinePlus } from "react-icons/ai";
 import { UserContext } from "@/context/UserInfo";
 import { UserLinkContext } from "@/context/UserLink";
-import { LinkTypes } from "@/types/Types";
+import { DialogIndexTypes, LinkTypes } from "@/types/Types";
 
 
 
-interface LinkProps{
-  formData: LinkTypes
-  setFormData:(data:LinkTypes)=>void,
-  setIndex:(index:number)=>void,
-  setOpen:(open:boolean)=>void,
+interface LinkProps {
+  setOpenSelector:(data:boolean)=>void;
+  formData: LinkTypes;
+  setFormData: (data: LinkTypes) => void;
+  setIndex: (index: DialogIndexTypes) => void;
+  setOpen: (open: boolean) => void;
 }
 
-const Links:FC<LinkProps> = ({formData, setFormData, setIndex, setOpen}:LinkProps) => {
+const Links:FC<LinkProps> = ({setOpenSelector,formData, setFormData, setIndex, setOpen}:LinkProps) => {
   const {userData}=useContext(UserContext)
   const {userLink}=useContext(UserLinkContext)
   return (
     <div className="md:w-[60%] h-[100vh] flex flex-col gap-8 md:p-8 p-4 w-full overflow-scroll bg-stone-50 border-r border-gray-400">
       <button
-        onClick={() => setOpen(true)}
+        onClick={() => setOpenSelector(true)}
         className="gap-1 w-full font-semibold flex items-center justify-center bg-purple-600 hover:bg-purple-700 text-white py-2 rounded-3xl"
       >
         <AiOutlinePlus />

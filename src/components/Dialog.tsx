@@ -9,10 +9,11 @@ import { FC } from "react";
 import AddSocial from "./AddSocial";
 import SocialInput from "./SocialInput";
 import AddLink from "./AddLink";
+import { DialogIndexTypes } from "@/types/Types";
 
 interface DialogProps {
-  index:Number,
-  setIndex:(index:Number)=>void,
+  index:DialogIndexTypes,
+  setIndex:(data: DialogIndexTypes)=>void,
   open: boolean;
   setOpen: (open: boolean) => void;
   setData: (data: any) => void;
@@ -27,9 +28,9 @@ interface DialogProps {
 const DialogComp: FC<DialogProps> = ({ index,setIndex,open, setOpen, setData, data }) => {
 
   const components = [
-    <AddSocial setIndex={setIndex}/>, // AddSocial doesn't need props based on current code
-    <SocialInput setOpen={setOpen}/>, // SocialInput doesn't need props based on current code
-    <AddLink setData={setData} data={data} setOpen={setOpen} />, // AddLink needs props
+    <AddSocial setIndex={setIndex}/>, 
+    <SocialInput setOpen={setOpen}/>, 
+    <AddLink setData={setData} setIndex={setIndex} data={data} setOpen={setOpen} dataIndex={index}/>, 
   ];
 
   return (
@@ -42,7 +43,7 @@ const DialogComp: FC<DialogProps> = ({ index,setIndex,open, setOpen, setData, da
           </DialogDescription>
         </DialogHeader>
         {/* Render the current component based on the index */}
-        <div>{components[Number(index)]}</div>
+        <div>{components[Number(index.index)]}</div>
       </DialogContent>
     </Dialog>
   );

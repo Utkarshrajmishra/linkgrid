@@ -41,3 +41,10 @@ export interface LinkContextTypes {
   userLink: LinksTypes[];
   setUserLink: (userLink: LinksTypes[]) => void;
 }
+
+
+export interface DialogIndexTypes{
+  index: Number,
+  dataTypes:string,
+  dataIndex:number
+}

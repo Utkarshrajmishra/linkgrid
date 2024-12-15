@@ -7,12 +7,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import X from "../assets/icons/x.svg";
 import Web from "../assets/icons/link.svg";
 import { FC, useState } from "react";
 import { IoLogoInstagram } from "react-icons/io";
+import { DialogIndexTypes } from "@/types/Types";
 interface SelectionDialogProps {
-  setIndex:(index:Number)=>void;
+  setIndex:(data:DialogIndexTypes)=>void;
   openSelection: boolean;
   setSelectionOpen: (openSelection: boolean) => void;
   setOpen:(openSelection:boolean)=>void
@@ -24,8 +24,8 @@ const SelectionDialog:FC<SelectionDialogProps>=({setIndex,openSelection,setSelec
     })
 
     const handleSubmit=()=>{
-      if (linkType.social) setIndex(0);
-      else setIndex(2);
+      if (linkType.social) setIndex({index:0, dataTypes:"", dataIndex:0});
+      else setIndex({index:2, dataTypes:"", dataIndex:0});
       setOpen(true);
       setSelectionOpen(false);  
     }

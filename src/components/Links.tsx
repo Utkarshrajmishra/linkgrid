@@ -3,28 +3,18 @@ import LinkContainer from "./LinkContainer";
 import { AiOutlinePlus } from "react-icons/ai";
 import { UserContext } from "@/context/UserInfo";
 import { UserLinkContext } from "@/context/UserLink";
+import { LinkTypes } from "@/types/Types";
 
-interface Data {
-  link: string;
-  show: boolean;
-  totalClicks: number;
-  title: string;
-}
-
-interface Link {
-  link: string;
-  show: boolean;
-  title: string;
-  totalClicks: Number;
-}
 
 
 interface LinkProps{
+  formData: LinkTypes
+  setFormData:(data:LinkTypes)=>void,
   setIndex:(index:number)=>void,
   setOpen:(open:boolean)=>void,
 }
 
-const Links:FC<LinkProps> = ({ setIndex, setOpen}:LinkProps) => {
+const Links:FC<LinkProps> = ({formData, setFormData, setIndex, setOpen}:LinkProps) => {
   const {userData}=useContext(UserContext)
   const {userLink}=useContext(UserLinkContext)
   return (
@@ -39,6 +29,8 @@ const Links:FC<LinkProps> = ({ setIndex, setOpen}:LinkProps) => {
       {userData.bio &&
         userData.socialLink.map((item, index) => (
           <LinkContainer
+            setFormData={setFormData}
+            formData={formData}
             setOpen={setOpen}
             setIndex={setIndex}
             type={"userInfo"}
@@ -52,6 +44,8 @@ const Links:FC<LinkProps> = ({ setIndex, setOpen}:LinkProps) => {
       {userLink &&
         userLink.map((item, index) => (
           <LinkContainer
+            setFormData={setFormData}
+            formData={formData}
             setOpen={setOpen}
             setIndex={setIndex}
             type={"userLink"}

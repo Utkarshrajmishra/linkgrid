@@ -21,7 +21,7 @@ export interface AuthContextTypes {
 export interface LinkTypes {
   link: string;
   show: boolean;
-  totalClicks: Number;
+  totalClicks: number;
   title:string;
 }
 
@@ -34,7 +34,7 @@ export interface LinksTypes {
   link: string;
   show: boolean;
   title: string;
-  totalClicks: Number;
+  totalClicks: number;
 }
 
 export interface LinkContextTypes {

@@ -65,7 +65,7 @@ const Home = () => {
       </div>
       {/* Main Content */}
       <div className="flex-1 flex">
-        {loading ? "Loading..." : <Links  setIndex={setIndx}   setOpen={setOpenSelection} />}
+        {loading ? "Loading..." : <Links setFormData={setData} formData={data}   setIndex={setIndx}   setOpen={setOpenSelection} />}
         <div className="hidden md:inline-block bg-stone-50 w-[40%]">
           <Preview />
         </div>

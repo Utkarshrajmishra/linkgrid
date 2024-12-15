@@ -19,7 +19,7 @@ interface DialogProps {
   data: {
     link: string;
     show: boolean;
-    totalClicks: number; // Use lowercase `number` for TypeScript
+    totalClicks: number; 
     title: string;
   };
 }

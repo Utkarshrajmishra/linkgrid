@@ -1,5 +1,6 @@
-export const Templates = {
-  green: {
+export const Templates = [
+  // green 
+  {
     bgColor: "bg-emerald-950",
     textColor: "text-white",
     outline: "none",
@@ -7,7 +8,8 @@ export const Templates = {
     shadow: "shadow-[5px_5px_0px_0px_rgba(13,13,13,0.8)] hover:shadow-none",
     iconColor: "white",
   },
-  dark: {
+  // dark
+   {
     bgColor: "bg-neutral-950",
     textColor: "text-white",
     containerBgColor: "bg-neutral-950",
@@ -15,7 +17,8 @@ export const Templates = {
     shadow: "shadow-none",
     iconColor: "white",
   },
-  light: {
+  // light
+   {
     bgColor: "bg-sky-200",
     textColor: "text-sky-900",
     containerBgColor: "bg-blue-300",
@@ -23,4 +26,4 @@ export const Templates = {
     shadow: "shadow-none",
     iconColor: "#0c4a6e",
   },
-};
+];

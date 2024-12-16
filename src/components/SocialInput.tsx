@@ -39,7 +39,7 @@ const SocialInput:FC<SocialInputProps>=({setOpen}:SocialInputProps)=>{
         try {
             await setDoc(
               doc(db, "userInfo", `${dataEmail.email}`),
-              userData
+              {...userData}
             );
             setProvider({...provider, providersIndex:[]})
             console.log("success")

@@ -8,7 +8,6 @@ import Youtube from "../assets/icons/youtube.svg";
 import Facebook from "../assets/icons/face.svg";
 import CloudSound from "../assets/icons/cloudsound.svg"
 import Amazon from "../assets/icons/amazon.svg"
-
 export const Icons = [
   {
     title: "Instagram",

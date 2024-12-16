@@ -12,7 +12,7 @@ const Sidebar = () => {
         <img
           src={Logo}
           alt="Logo"
-          className="h6 w-6 mb-2 hidden md:inline-block"
+          className="h-6 w-6 mb-2 hidden md:inline-block"
         />
         {Setting.map((item) => (
           <div

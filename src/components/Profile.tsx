@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { User, LogOut, Mail, DatabaseIcon } from "lucide-react";
+import { User, LogOut, Mail } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,

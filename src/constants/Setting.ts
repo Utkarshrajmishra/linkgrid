@@ -2,6 +2,7 @@ import { CiSettings } from "react-icons/ci";
 import { CiExport } from "react-icons/ci";
 import { CiDatabase } from "react-icons/ci";
 import { CiMemoPad } from "react-icons/ci";
+import { CiShop } from "react-icons/ci";
 export const Setting = [
   {
     id: 1,
@@ -20,6 +21,11 @@ export const Setting = [
   },
   {
     id: 4,
+    title: "Shop",
+    icons: CiShop,
+  },
+  {
+    id: 5,
     title: "Setting",
     icons: CiSettings,
   },

@@ -1,11 +1,8 @@
 import { Setting } from "@/constants/Setting";
 import Logo from "../assets/image/black-logo.png";
-
+import Profile from "./Profile";
 
 const Sidebar = () => {
-  
-
-  
   return (
     <div className=" bg-stone-50 p-5 h-[100vh] flex flex-col justify-between border-r border-gray-400">
       <div className="flex flex-col gap-5 mt-1">
@@ -26,10 +23,7 @@ const Sidebar = () => {
           </div>
         ))}
       </div>
-      <div  className="flex gap-3 items-center cursor-pointer" >
-        <div className="h-12 w-12 rounded-full bg-zinc-400"></div>
-        <p className="font-semibold">@utkarsh_075</p>
-      </div>
+      <Profile />
     </div>
   );
 };

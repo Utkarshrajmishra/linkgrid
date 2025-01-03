@@ -5,7 +5,7 @@ import Profile from "./Profile";
 const Sidebar = () => {
   return (
     <div className=" bg-stone-50 p-4 h-[100vh] flex flex-col justify-between border-r border-gray-400">
-      <div className="flex flex-col gap-5 md:gap-0 mt-1">
+      <div className="flex cursor-pointer flex-col gap-5 md:gap-0 mt-1">
         <img
           src={Logo}
           alt="Logo"

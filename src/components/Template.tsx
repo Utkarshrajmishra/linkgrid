@@ -17,7 +17,7 @@ const Template = () => {
   return (
     <div>
       <div
-        className={`gap-4 h-[550px] w-[330px] rounded-xl ${Templates[templateIndex].bgColor} ${Templates[templateIndex].textColor} ${Templates[templateIndex].outline} font-inter flex items-center flex-col`}
+        className={`gap-4  h-[550px] w-[330px] rounded-xl ${Templates[templateIndex].bgColor} ${Templates[templateIndex].textColor} ${Templates[templateIndex].outline} font-inter flex items-center flex-col`}
       >
         <div className="flex gap-2 items-center flex-col mt-6">
           <div className="rounded-full h-[68px] w-[68px] bg-white"></div>
@@ -26,7 +26,7 @@ const Template = () => {
             <p className="text-sm text-zinc-200">{userData.bio}</p>
           </div>
         </div>
-
+        
         {/* Socials */}
         <div className="flex gap-2 px-10 overflow-x-auto">
           {userData.soicalProviders.map((_, index) => (
@@ -84,7 +84,7 @@ const Template = () => {
           ))}
         </div>
 
-        <div className="w-full flex-col px-5 flex gap-4 overflow-y-scroll ">
+        <div className="w-full pb-4 flex-col px-5 flex gap-4 overflow-y-scroll ">
           {userLink.map((item, index) => (
             <div
               key={index}

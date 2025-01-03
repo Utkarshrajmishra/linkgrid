@@ -7,7 +7,7 @@ import { UserLinkContext } from "@/context/UserLink";
 const Template = () => {
   const { userData } = useContext(UserContext);
   const { userLink } = useContext(UserLinkContext);
-
+  console.log(userData)
   // Ensure both userData and userLink exist before rendering
   if (!userData || !userLink) return <p>Loading</p>;
 
@@ -29,58 +29,16 @@ const Template = () => {
         
         {/* Socials */}
         <div className="flex gap-2 px-10 overflow-x-auto">
-          {userData.soicalProviders.map((_, index) => (
+          {userData.soicalProviders.map((item, index) => (
             <>
               <a key={index} href={userData.socialLink[index]?.link}>
                 <TemplateIcons
-                  index={7}
+                  index={Number(item)}
                   fontSize={22}
                   color={Templates[templateIndex].iconColor}
                 />
               </a>
-              <a key={index} href={userData.socialLink[index]?.link}>
-                <TemplateIcons
-                  index={3}
-                  fontSize={22}
-                  color={Templates[templateIndex].iconColor}
-                />
-              </a>
-              <a key={index} href={userData.socialLink[index]?.link}>
-                <TemplateIcons
-                  index={4}
-                  fontSize={22}
-                  color={Templates[templateIndex].iconColor}
-                />
-              </a>
-              <a key={index} href={userData.socialLink[index]?.link}>
-                <TemplateIcons
-                  index={5}
-                  fontSize={22}
-                  color={Templates[templateIndex].iconColor}
-                />
-              </a>
-              <a key={index} href={userData.socialLink[index]?.link}>
-                <TemplateIcons
-                  index={6}
-                  fontSize={22}
-                  color={Templates[templateIndex].iconColor}
-                />
-              </a>
-              <a key={index} href={userData.socialLink[index]?.link}>
-                <TemplateIcons
-                  index={8}
-                  fontSize={22}
-                  color={Templates[templateIndex].iconColor}
-                />
-              </a>
-              <a key={index} href={userData.socialLink[index]?.link}>
-                <TemplateIcons
-                  index={9}
-                  fontSize={22}
-                  color={Templates[templateIndex].iconColor}
-                />
-              </a>
-            </>
+                        </>
           ))}
         </div>
 
